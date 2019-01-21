@@ -7,36 +7,64 @@ class Question
     @artist = get_top_artists.shuffle.first
     @content = "Name as many songs by #{artist} as you can!!!"
     @answers = top_track_names_from_artist(artist)
+    @answered = []
+  end
+
+  def hidden_answers
+    answers.first(15).map {|answer|
+      if @answered.include?(answer)
+        answer
+      else
+        answer.split.map {|x| x.first + "__"}.join("  ")
+      end}
   end
 
   def ask_loop
-    time_limit = 60
-    answered = []
+    time_limit = 100
+    input = nil
     question_time = Time.now
+
+    50.times {brk}
+    hidden_answers.each {|x| puts x}
+    brk
     puts content
     input = nil
+
     while input != "exit"
     input = gets.strip
     countdown = Time.now - question_time
-
-      if self.answers.include?(input)
-        answered << input
-        20.times {puts ""}
-        puts content
-        answered.each {|e| puts  "  -  " + e +  "  -  "}
-        puts
-      else
-        puts "#{input} is wrong!"
-      end
-
-      if countdown > time_limit
-        puts "TIMES UP"
-        break
-      else
-        puts "You have #{time_limit - countdown.to_i} seconds left!"
-      end
+      check_input(input)
+      check_countdown(countdown, time_limit)
     end
-    puts "Thanks for playing."
+
+    brk
+    answers.first(15).each{|x| puts x}
+    brk
+  end
+
+  def brk
+    puts ""
+  end
+
+  def check_input(input)
+    if self.answers.include?(input)
+      @answered << input
+      50.times {puts ""}
+      puts hidden_answers
+      brk
+      puts content
+      brk
+    else
+      puts "#{input} is wrong!"
+    end
+  end
+
+  def check_countdown(countdown, time_limit)
+    if countdown > time_limit
+      puts "TIMES UP"
+    else
+      puts "You have #{time_limit - countdown.to_i} seconds left!"
+    end
   end
 
 end
