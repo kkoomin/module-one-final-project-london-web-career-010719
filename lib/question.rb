@@ -11,7 +11,7 @@ class Question
   end
 
   def hidden_answers
-    answers.first(15).map {|answer|
+    answers.first(20).map {|answer|
       if @answered.include?(answer)
         answer
       else
@@ -40,7 +40,7 @@ class Question
     end
 
     brk
-    answers.first(15).each{|x| puts x}
+    answers.first(20).each{|x| puts x}
     brk
   end
 
