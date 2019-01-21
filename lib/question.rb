@@ -4,7 +4,7 @@ class Question
   @@all = []
 
   def initialize
-    @artist = get_top_artists.shuffle.first
+    @artist = get_top_artists_names.shuffle.first
     @content = "Name as many songs by #{artist} as you can!!!"
     @answers = top_track_names_from_artist(artist)
     @answered = []
@@ -15,7 +15,7 @@ class Question
       if @answered.include?(answer)
         answer
       else
-        answer.split.map {|x| x.first + "__"}.join("  ")
+        answer.split.map {|x| x.gsub(/[^a-zA-Z0-9\-]/,"").first + "__"}.join("  ")
       end}
   end
 

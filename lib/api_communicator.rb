@@ -16,7 +16,7 @@ def top_track_names_from_artist(artist)
   top_tracks_from_artist(artist)["toptracks"]["track"].map {|m| m["name"]}
 end
 
-def get_top_artists
+def get_top_artists_names
   parse = JSON.parse(RestClient.get("http://ws.audioscrobbler.com//2.0/?method=chart.gettopartists&api_key=#{$api_key}&format=json"))
   parse["artists"]["artist"].map {|m| m["name"]}
 end
