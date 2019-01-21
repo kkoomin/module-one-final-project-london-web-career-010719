@@ -15,7 +15,12 @@ class Question
       if @answered.include?(answer)
         answer
       else
-        answer.split.map {|x| x.gsub(/[^a-zA-Z0-9\-]/,"").first + "__"}.join("  ")
+        answer.split.map {|x|
+          if  x.length == 1 || x.length == 2 || x.downcase == "the" 
+            x
+          else
+            x.gsub(/[^a-zA-Z0-9\-]/,"").first + "__"
+          end}.join("  ")
       end}
   end
 
@@ -70,6 +75,9 @@ class Question
   def update_board
     50.times {brk}
     puts hidden_answers
+    brk
+    puts "SCORE: #{@answered.length}"
+    brk
     puts content
     brk
   end
