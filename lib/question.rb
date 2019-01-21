@@ -28,6 +28,8 @@ class Question
     hidden_answers.each {|x| puts x}
     brk
     puts content
+    brk
+    brk
     input = nil
 
     while input != "exit"
@@ -47,16 +49,29 @@ class Question
   end
 
   def check_input(input)
+    corrected_input = song_search_return_name(input)
     if self.answers.include?(input)
       @answered << input
-      50.times {puts ""}
-      puts hidden_answers
+      update_board
+      puts "CORRECT"
       brk
-      puts content
+    elsif self.answers.include?(corrected_input)
+      @answered << corrected_input
+      update_board
+      puts "CORRECT"
       brk
     else
-      puts "#{input} is wrong!"
+      update_board
+      puts "INCORRECT"
+      brk
     end
+  end
+
+  def update_board
+    50.times {brk}
+    puts hidden_answers
+    puts content
+    brk
   end
 
   def check_countdown(countdown, time_limit)
