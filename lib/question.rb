@@ -85,6 +85,7 @@ class Question
   def check_countdown(countdown, time_limit)
     if countdown > time_limit
       puts "TIMES UP"
+      puts "You got #{@answered.count} songs! You score is #{score_storage}"
     else
       puts "You have #{time_limit - countdown.to_i} seconds left!"
     end
