@@ -17,21 +17,20 @@ def welcome_user
       puts "Please create new password."
       user.update_password(get_input)
       puts "Password Set"
+      return user
    else
       puts "Welcome back, #{user_name}!"
-      check_password(User.find_by(name: user_name))
+      User.find_by(name: user_name).check_password
    end
 end
 
-def check_password(user)
-   puts "Please enter your password."
-   input = get_input
-    if user.password_checker(input) == true
-      puts "Welcome back"
-    elsif input.downcase == "exit"
-      exit
-    else
-      puts "Wrong password, try again"
-      check_password(user)
-    end
+def init
+   user = welcome_user
+   user.artists.first ? user.change_artists : user.enter_artists
+   Question.new(user.artists.sample.name).ask_loop
 end
+
+
+      
+
+

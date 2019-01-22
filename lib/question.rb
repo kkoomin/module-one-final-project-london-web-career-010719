@@ -3,7 +3,7 @@ class Question
   attr_accessor :content, :artist, :answers
   @@all = []
 
-  def initialize
+  def initialize(artist)
     @artist = artist
     @content = "Name as many songs by #{artist} as you can!!!"
     @answers = top_track_names_from_artist(artist)
@@ -38,7 +38,7 @@ class Question
     input = nil
 
     while input != "exit"
-    input = gets.strip
+    input = get_input
     countdown = Time.now - question_time
       check_input(input)
       check_countdown(countdown, time_limit)
