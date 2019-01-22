@@ -11,29 +11,34 @@ class User < ActiveRecord::Base
   end
 
   def check_password
+    brk
     puts "Please enter your password."
+    brk
     input = get_input
      if self.password_checker(input) == true
-       puts "Welcome back" 
+       brk
+       puts "Welcome back"
        return self
      elsif input.downcase == "exit"
        exit
      else
+       brk
        puts "Wrong password, try again"
        check_password
      end
  end
- 
+
  def enter_artists
   while self.artists.length < 5
-
-    puts "Please enter your favourite artist."
+    brk
+    puts "Please enter your favourite artists."
+    brk
     artist_name = check_artists(get_input)
-   
+
     if !artist_name.nil?
        artist = Artist.find_by(name: artist_name)
        if artist.nil?
-          self.artists << Artist.create(name: artist_name) 
+          self.artists << Artist.create(name: artist_name)
           puts "Got it! #{artist_name} has been added!"
        elsif self.artists.select{|a| a.id == artist.id}.first.nil?
           self.artists << artist
@@ -41,7 +46,8 @@ class User < ActiveRecord::Base
        else
           puts "You already have this artist!"
        end
-    else 
+    else
+        brk
        puts "We can't find this #{artist_name}. Try again."
        enter_artists
     end
@@ -49,10 +55,11 @@ class User < ActiveRecord::Base
   end
 
  end
- 
+
  def change_artists
     prompt = TTY::Prompt.new
     # puts "Do you want to change the list of your artists?"
+    brk
     selection = prompt.select("Do you want to change the list of your artists?") do |a|
        a.choice 'yes'
        a.choice 'no'
@@ -63,9 +70,6 @@ class User < ActiveRecord::Base
      else
        puts "nah"
      end
- 
  end
-
-
 
 end
