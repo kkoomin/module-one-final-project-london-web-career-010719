@@ -49,10 +49,6 @@ class Question
     brk
   end
 
-  def brk
-    puts ""
-  end
-
   def check_input(input)
     corrected_input = song_search_return_name(input)
     if self.answers.include?(input)
