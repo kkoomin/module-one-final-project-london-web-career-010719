@@ -2,42 +2,36 @@ def welcome
    puts "Welcome to the music quiz!"
 end
 
-def get_user_name
-   puts "What's your name?"
+def get_input
    input = STDIN.gets.strip
    input
 end
 
-def check_user
-   user_name = get_user_name
-   #if new user
-   if !User.find_by(name: user_name)
-      User.create(name: user_name)
+def welcome_user
+  welcome
+  puts "Please enter your name"
+  user_name = get_input
+  if !User.find_by(name: user_name)
+      user = User.create(name: user_name)
       puts "Awesome, nice to meet you, #{user_name}!"
-      create_password(User.find_by(name: user_name))
-    #else (existing user)
-   else 
+      puts "Please create new password."
+      user.update_password(get_input)
+      puts "Password Set"
+   else
       puts "Welcome back, #{user_name}!"
       check_password(User.find_by(name: user_name))
    end
 end
 
 def check_password(user)
-   puts "Please enter your password."   
-   password = STDIN.gets.strip
-   if user.password == password.to_i
+   puts "Please enter your password."
+   input = get_input
+    if user.password_checker(input) == true
       puts "Welcome back"
-   elsif password == "exit"
+    elsif input.downcase == "exit"
       exit
-   else 
+    else
       puts "Wrong password, try again"
       check_password(user)
-   end
+    end
 end
-
-def create_password(user)
-   puts "Please create new password."
-   password = STDIN.gets.strip.to_i
-   user.update(password: password)
-end
-
