@@ -13,7 +13,7 @@ class Question
   def hidden_answers
     answers.first(20).map {|answer|
       if @answered.include?(answer)
-        answer
+        Rainbow(answer).green
       else
         answer.split.map {|x|
           if  x.length == 1 || x.length == 2 || x.downcase == "the"
@@ -25,7 +25,7 @@ class Question
   end
 
   def ask_loop
-    time_limit = 100
+    time_limit = 10
     input = nil
     question_time = Time.now
 
@@ -51,16 +51,16 @@ class Question
     if self.answers.include?(input)
       @answered << input
       update_board
-      puts "CORRECT"
+      puts Rainbow("CORRECT").green
       brk
     elsif self.answers.include?(corrected_input)
       @answered << corrected_input
       update_board
-      puts "CORRECT"
+      puts Rainbow("CORRECT").green
       brk
     else
       update_board
-      puts "INCORRECT"
+      puts Rainbow("INCORRECT").red
       brk
     end
   end
@@ -77,14 +77,14 @@ class Question
 
   def check_countdown(countdown, time_limit)
     if countdown > time_limit
-      brk
-      answers.first(20).each{|x| puts x}
-      brk
+      $current_user.add_score(@answered.count)
       puts "TIMES UP"
-      puts "You got #{@answered.uniq.length} songs!"
+      puts "You got #{@answered.count} songs!"
     else
       puts "You have #{time_limit - countdown.to_i} seconds left!"
     end
   end
+
+
 
 end
