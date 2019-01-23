@@ -125,6 +125,7 @@ DEPENDENCIES
   formatador
   highline
   lolcat
+  pastel
   pry
   rainbow
   require_all
