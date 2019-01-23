@@ -25,6 +25,7 @@ class Question
   end
 
   def ask_loop
+
     time_limit = 90
     input = nil
     question_time = Time.now
@@ -78,9 +79,10 @@ class Question
   def check_countdown(countdown, time_limit)
     if countdown > time_limit
       $current_user.add_score(@answered.count)
-      puts "TIMES UP"
+      puts "TIMES UP!"
       puts "You got #{@answered.count} songs!"
-      main_menu($current_user)
+    
+      back_or_exit
     else
       puts "You have #{time_limit - countdown.to_i} seconds left!"
     end

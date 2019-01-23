@@ -15,6 +15,7 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (7.1.4)
+    artii (2.1.2)
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     domain_name (0.5.20180417)
@@ -22,6 +23,7 @@ GEM
     equatable (0.5.0)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
+    formatador (0.2.5)
     hashie (3.6.0)
     highline (2.0.0)
     http-cookie (1.0.3)
@@ -30,6 +32,11 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.8.1)
     jwt (2.1.0)
+    lolcat (99.9.20)
+      manpages (~> 0.6.1)
+      optimist (~> 3.0.0)
+      paint (~> 2.0.0)
+    manpages (0.6.1)
     method_source (0.8.2)
     mime-types (3.2.2)
       mime-types-data (~> 3.2015)
@@ -52,6 +59,8 @@ GEM
     omniauth-oauth2 (1.5.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.2)
+    optimist (3.0.0)
+    paint (2.0.3)
     pastel (0.7.2)
       equatable (~> 0.5.0)
       tty-color (~> 0.4.0)
@@ -112,7 +121,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  artii
+  formatador
   highline
+  lolcat
   pry
   rainbow
   require_all
