@@ -18,12 +18,19 @@ class User < ActiveRecord::Base
        brk
        puts "Welcome back"
        return self
-     elsif password.downcase == "exit"
-       exit
      else
        brk
-       puts "Wrong password, try again"
-       check_password
+       menu = TTY::Prompt.new
+        brk
+        selection = menu.select("Wrong password, wanna try again?") do |a|
+          a.choice 'Try again'
+          a.choice 'Back to menu'
+        end
+        if selection == 'Try again'
+          check_password
+        elsif selection == 'Back to menu'
+          start_menu
+        end
      end
  end
 
@@ -65,7 +72,7 @@ class User < ActiveRecord::Base
      end
      if selection == 'yes'
        self.artists.destroy_all
-       self.enter_artists #should be 5 times
+       self.enter_artists
      else
        main_menu($current_user)
      end
