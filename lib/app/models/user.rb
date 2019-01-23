@@ -17,7 +17,8 @@ class User < ActiveRecord::Base
      if self.password_checker(password) == true
        brk
        puts "Welcome back"
-       return self
+       $current_user = self
+       return main_menu($current_user)
      else
        brk
        menu = TTY::Prompt.new
