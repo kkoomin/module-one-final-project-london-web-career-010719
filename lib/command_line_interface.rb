@@ -2,12 +2,12 @@ $current_user = nil
 #STDIN.noecho(&:gets).chomp <- no charater printed out
 
 def welcome
-   puts Rainbow("Welcome to the music quiz!").blink.orange
+   puts Rainbow("Welcome to the music quiz!").orange
 end
 
 def get_input
    input = STDIN.gets.strip
-   input
+   input.length == 0 ? " " : input
 end
 
 def password_prompt(message, mask='*')
@@ -56,7 +56,9 @@ def create_account #for '#start_menu'
       password = password_prompt('Please create new password.')
       user.update_password(password)  
       puts "Password Set!"
-      return user
+      $current_user = user
+      $current_user.enter_artists 
+      main_menu($current_user)
    else 
       puts "That name is taken. Please choose another one."
       create_account
@@ -95,22 +97,40 @@ def main_menu(user)
       a.choice 'Quiz'
       a.choice 'High Scores'
       a.choice 'Popular Artists'
+      a.choice 'Update your Artists'
+      a.choice 'Change User'
       a.choice 'Exit Game'
     end
-    if selection == 'Quiz'
+
+   if selection == 'Quiz'
       Question.new(user.artists.sample.name).ask_loop
-    elsif selection == 'Exit Game'
-      exit
-    elsif selection == 'High Scores'
+   elsif selection == 'High Scores'
       puts "----HIGH SCORES----"
       puts User.rank
-      selection = menu.select("") do |a|
-        a.choice 'Back to Main Menu'
-        a.choice 'Exit Game'
-      end
-      main_menu($current_user) if selection == 'Back to Main Menu'
-      exit if selection == 'Exit Game'
-    end
+      back_or_exit
+   elsif selection == 'Popular Artists'
+      puts "----Popular Artists----"
+      puts Artist.popular
+      back_or_exit
+   elsif selection == 'Update your Artists'
+      user.change_artists
+   elsif selection == 'Exit Game'
+      exit
+   elsif selection == 'Change User'
+      $current_user = nil
+      start_menu
+   end
+
+end
+
+def back_or_exit
+   menu = TTY::Prompt.new
+   selection = menu.select("") do |a|
+      a.choice 'Back to Main Menu'
+      a.choice 'Exit Game' 
+   end
+    main_menu($current_user) if selection == 'Back to Main Menu'
+    exit if selection == 'Exit Game'
 end
 
 def rank 
@@ -123,7 +143,5 @@ end
 
 def init
    welcome
-   $current_user = start_menu
-   $current_user.artists.first ? $current_user.change_artists : $current_user.enter_artists
-   main_menu($current_user)
+   start_menu
 end

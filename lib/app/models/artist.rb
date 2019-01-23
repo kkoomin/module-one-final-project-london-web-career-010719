@@ -18,7 +18,7 @@ class Artist < ActiveRecord::Base
 
   def self.popular
     artists = Artist.all
-    artists.sort {|a,b| b.users.count <=> a.users.count}.first(5)
+    artists.sort {|a,b| b.users.count <=> a.users.count}.first(5).map{|a| "#{a.name} : #{a.users.count}"}
   end
 
 end
