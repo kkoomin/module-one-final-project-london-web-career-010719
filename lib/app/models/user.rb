@@ -12,14 +12,13 @@ class User < ActiveRecord::Base
 
   def check_password
     brk
-    puts "Please enter your password."
+    password = password_prompt('Please enter your password.')
     brk
-    input = get_input
-     if self.password_checker(input) == true
+     if self.password_checker(password) == true
        brk
        puts "Welcome back"
        return self
-     elsif input.downcase == "exit"
+     elsif password.downcase == "exit"
        exit
      else
        brk
@@ -72,4 +71,8 @@ class User < ActiveRecord::Base
      end
  end
 
+
+  def add_score(score)
+    self.update(highscore: score) if self.highscore < score
+  end
 end

@@ -8,3 +8,6 @@ gem "require_all"
 gem 'rspotify'
 gem "spotify-ruby"
 gem 'tty-prompt'
+
+gem 'highline'
+gem 'rainbow'
