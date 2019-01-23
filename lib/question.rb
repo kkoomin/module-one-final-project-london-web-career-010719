@@ -19,13 +19,14 @@ class Question
           if  x.length == 1 || x.length == 2 || x.downcase == "the"
             x
           else
-            x.gsub(/[^a-zA-Z0-9\-]/,"").first + "__"
+            x.gsub(/[^a-zA-Z0-9\-]/,"").first + "-" + x[2..-1].gsub(/\D/,"┈")
           end}.join("  ")
       end}
   end
 
   def ask_loop
-    time_limit = 60
+
+    time_limit = 90
     input = nil
     question_time = Time.now
 
@@ -66,7 +67,7 @@ class Question
   end
 
   def update_board
-    50.times {brk}
+    system('clear')
     puts hidden_answers
     brk
     puts "SCORE: #{@answered.uniq.length}"
