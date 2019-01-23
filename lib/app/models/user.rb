@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
        self.artists.destroy_all
        self.enter_artists #should be 5 times
      else
-       puts "nah"
+       main_menu($current_user)
      end
  end
 
@@ -75,4 +75,10 @@ class User < ActiveRecord::Base
   def add_score(score)
     self.update(highscore: score) if self.highscore < score
   end
+
+  def self.rank
+    users_arr = self.order(highscore: :desc)
+    users_arr.limit(5).map {|i| "#{i.name} : #{i.highscore}"}
+  end
+
 end

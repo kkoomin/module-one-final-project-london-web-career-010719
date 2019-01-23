@@ -16,5 +16,9 @@ class Artist < ActiveRecord::Base
     parse["topalbums"]["album"].map {|m| m["name"]}
   end
 
+  def self.popular
+    artists = Artist.all
+    artists.sort {|a,b| b.users.count <=> a.users.count}.first(5)
+  end
 
 end
