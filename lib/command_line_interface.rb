@@ -2,15 +2,19 @@ $current_user = nil
 #STDIN.noecho(&:gets).chomp <- no charater printed out
 
 def welcome
-   brk
-   brk
-   brk
+  brk
+  brk
+  brk
    system("artii 'Music Quiz' --font slant")
    brk
+   brk
+   puts '“Without music, life would be a mistake”'
+   puts '                               ― Friedrich Nietzsche'
    brk
    brk
    puts Rainbow("🎵  Choose your Favourite Artists and Solve the Quiz!  🎵").red
    brk
+   system("playback POL-pet-park-short.wav -e 5")
 end
 
 def get_input
@@ -26,9 +30,17 @@ def brk
   puts ""
 end
 
+def big_brk
+  system("clear")
+  system("artii 'Music Quiz' --font slant")
+  puts Rainbow("🎵 --------------------------------------------🎵").red
+  brk
+  brk
+end
+
 
 # ///////////////////////////
-def start_menu 
+def start_menu
    menu = TTY::Prompt.new
    brk
    selection = menu.select("") do |a|
@@ -39,12 +51,14 @@ def start_menu
     end
 
     if selection == 'New Player'
+      big_brk
       create_account
     elsif selection == 'Existing Player'
+      big_brk
       login_account
     elsif selection == "Exit game"
       exit
-    else 
+    else
       system("artii 'B O O M !' | lolcat -a")
       puts "💣 It's A Trap!!! 💣"
       sleep 2
@@ -54,26 +68,29 @@ def start_menu
 end
 
 def create_account #for '#start_menu'
-   puts "Please enter your name"
+   puts "Please enter your name:"
    brk
    user_name = get_input
 
    if !User.find_by(name: user_name)
       user = User.create(name: user_name)
+      big_brk
       puts "Awesome, nice to meet you, #{user_name}!"
       brk
       password = password_prompt('Please create new password.')
-      user.update_password(password)  
+      user.update_password(password)
+      big_brk
       puts "Password Set!"
       $current_user = user
-      $current_user.enter_artists 
+      $current_user.enter_artists
       main_menu($current_user)
-   else 
+   else
+      big_brk
       puts "That name is taken. Please choose another one."
       create_account
    end
 end
- 
+
 def login_account #for '#start_menu'
    puts "Please enter your name"
    brk
@@ -82,7 +99,7 @@ def login_account #for '#start_menu'
    if User.find_by(name: user_name)
       puts "Welcome back, #{user_name}!"
       User.find_by(name: user_name).check_password
-   else 
+   else
       menu = TTY::Prompt.new
       brk
       selection = menu.select("I can't find your name, wanna try again?") do |a|
@@ -101,7 +118,7 @@ end
 
 def main_menu(user)
    menu = TTY::Prompt.new
-   brk
+   big_brk
    selection = menu.select("MAIN MENU") do |a|
       a.choice 'Quiz'
       a.choice 'High Scores'
@@ -145,17 +162,10 @@ def back_or_exit
    menu = TTY::Prompt.new
    selection = menu.select("") do |a|
       a.choice 'Back to Main Menu'
-      a.choice 'Exit Game' 
+      a.choice 'Exit Game'
    end
     main_menu($current_user) if selection == 'Back to Main Menu'
     exit if selection == 'Exit Game'
-end
-
-def rank 
-   users_arr = User.order(highscore: :desc)
-   users_arr.limit(5).map do |i|
-      "#{i.name} : #{i.highscore}"
-   end
 end
 
 
