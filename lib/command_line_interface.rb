@@ -51,15 +51,16 @@ def start_menu
       a.choice 'Exit game'
     end
 
-    if selection == 'New Player'
-      big_brk
-      create_account
-    elsif selection == 'Existing Player'
-      big_brk
-      login_account
-    elsif selection == "Exit game"
-      exit
-    else
+    case selection
+      when 'New Player'
+        big_brk
+        create_account
+      when 'Existing Player'
+        big_brk
+        login_account
+      when 'Exit game'
+        exit
+      when ' '
       system("artii 'B O O M !' | lolcat -a")
       puts "💣 It's A Trap!!! 💣"
       sleep 1
@@ -129,32 +130,31 @@ def main_menu(user)
       a.choice 'Exit Game'
     end
 
-   if selection == 'Quiz'
-      #progress bar
-      total    = 500
-      progress = Formatador::ProgressBar.new(total, :color => "light_blue")
-      puts "Creating your Quiz!"
-      500.times do
-      progress.increment
-      end
-      #
-      Question.new(user.artists.sample.name).ask_loop
-   elsif selection == 'High Scores'
-      puts "----HIGH SCORES----"
-      puts User.rank
-      back_or_exit
-   elsif selection == 'Popular Artists'
-      puts "----Popular Artists----"
-      puts Artist.popular
-      back_or_exit
-   elsif selection == 'Update your Artists'
-      user.change_artists
-   elsif selection == 'Exit Game'
-      exit
-   elsif selection == 'Change User'
-      $current_user = nil
-      start_menu
-   end
+    case selection
+      when 'Quiz'
+        #progress bar
+        total    = 500
+        progress = Formatador::ProgressBar.new(total, :color => "light_blue")
+        puts "Creating your Quiz!"
+        500.times {progress.increment}
+
+        Question.new(user.artists.sample.name).ask_loop
+      when 'High Scores'
+        puts "----HIGH SCORES----"
+        puts User.rank
+        back_or_exit
+      when 'Popular Artists'
+        puts "----Popular Artists----"
+        puts Artist.popular
+        back_or_exit
+      when 'Update your Artists'
+        user.change_artists
+      when 'Exit Game'
+        exit
+      when 'Change User'
+        $current_user = nil
+        start_menu
+    end
 
 end
 

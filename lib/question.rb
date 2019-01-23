@@ -25,7 +25,6 @@ class Question
   end
 
   def ask_loop
-
     time_limit = 90
     input = nil
     question_time = Time.now
@@ -36,10 +35,7 @@ class Question
     puts "SCORE: #{@answered.uniq.length}"
     brk
     puts content
-    brk
-    brk
-    brk
-    brk
+    4.times{brk}
     input = nil
 
     while input != "exit"
