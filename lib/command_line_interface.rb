@@ -125,7 +125,9 @@ end
 def main_menu(user)
    menu = TTY::Prompt.new
    big_brk
-   selection = menu.select("MAIN MENU") do |a|
+   puts "🎵 MAIN MENU 🎵"
+   brk
+   selection = menu.select("") do |a|
       a.choice 'Quiz'
       a.choice 'High Scores'
       a.choice 'Popular Artists'
@@ -140,7 +142,7 @@ def main_menu(user)
       progress = Formatador::ProgressBar.new(total, :color => "light_blue")
       puts "Creating your Quiz!"
       1000.times do
-      sleep 0.001
+      sleep 0.0005
       progress.increment
       end
       #

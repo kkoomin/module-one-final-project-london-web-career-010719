@@ -10,6 +10,33 @@ class Question
     @answered = []
   end
 
+  
+  def ask_loop
+    time_limit = 15#(seconds)
+    input = nil
+    question_time = Time.now
+
+    big_brk
+    hidden_answers.each {|x| puts x}
+    brk
+    puts content
+    brk
+    brk
+
+    until Time.now - question_time > time_limit
+      puts "You have #{time_limit - (Time.now - question_time).to_i} seconds left!"
+      input = get_input
+      check_input(input)
+      brk
+    end
+      $current_user.add_score(@answered.count)
+      puts "TIMES UP!"
+      puts "You got #{@answered.count} songs!"
+      brk
+      answer_or_back_or_exit
+  end
+
+  
   def hidden_answers
     answers.first(20).map {|answer|
       if @answered.include?(answer)
@@ -24,29 +51,18 @@ class Question
       end}
   end
 
-  def ask_loop
-
-    time_limit = 90
-    input = nil
-    question_time = Time.now
-
-    big_brk
-    hidden_answers.each {|x| puts x}
-    brk
-    puts content
-    brk
-    brk
-    input = nil
-
-    while input != "exit"
-    input = get_input
-    countdown = Time.now - question_time
-      check_input(input)
-      check_countdown(countdown, time_limit)
-    end
-
+  
+  def print_answers 
+    answers.first(20).map do |answer|
+      if @answered.include?(answer)
+        Rainbow(answer).green
+      else
+        Rainbow(answer).red
+      end
+    end.each {|x| puts x}
   end
 
+  
   def check_input(input)
     corrected_input = song_search_return_name(input, self.artist)
     if self.answers.include?(input)
@@ -66,6 +82,7 @@ class Question
     end
   end
 
+
   def update_board
     big_brk
     puts hidden_answers
@@ -76,15 +93,21 @@ class Question
     brk
   end
 
-  def check_countdown(countdown, time_limit)
-    if countdown > time_limit
-      $current_user.add_score(@answered.count)
-      puts "TIMES UP!"
-      puts "You got #{@answered.count} songs!"
+  def answer_or_back_or_exit
+    menu = TTY::Prompt.new
+    selection = menu.select("") do |a|
+      a.choice 'Check your answer'
+      a.choice 'Back to Main Menu'
+      a.choice 'Exit Game'
+    end
 
+    if selection == 'Check your answer'
+      print_answers
       back_or_exit
-    else
-      puts "You have #{time_limit - countdown.to_i} seconds left!"
+    elsif selection == 'Back to Main Menu'
+      main_menu($current_user)
+    else 
+      exit
     end
   end
 
