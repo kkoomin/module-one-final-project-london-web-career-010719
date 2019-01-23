@@ -33,7 +33,11 @@ class Question
     big_brk
     hidden_answers.each {|x| puts x}
     brk
+    puts "SCORE: #{@answered.uniq.length}"
+    brk
     puts content
+    brk
+    brk
     brk
     brk
     input = nil

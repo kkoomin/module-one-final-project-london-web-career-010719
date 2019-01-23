@@ -4,9 +4,7 @@ $pastel = Pastel.new
 
 
 def welcome
-  brk
-  brk
-  brk
+  system("clear")
    system("artii 'Music Quiz' --font slant")
    brk
    brk
@@ -80,13 +78,12 @@ def create_account #for '#start_menu'
       big_brk
       puts "Awesome, nice to meet you, #{user_name}!"
       brk
-      password = password_prompt('Please create new password.')
+      password = password_prompt('Please create a new password.')
       user.update_password(password)
       big_brk
       puts "Password Set!"
       $current_user = user
       $current_user.enter_artists
-      main_menu($current_user)
    else
       big_brk
       puts "That name is taken. Please choose another one."
@@ -100,8 +97,6 @@ def login_account #for '#start_menu'
    user_name = get_input
 
    if User.find_by(name: user_name)
-      brk
-      brk
       brk
       puts "Welcome back, #{user_name}!"
       User.find_by(name: user_name).check_password
@@ -136,11 +131,10 @@ def main_menu(user)
 
    if selection == 'Quiz'
       #progress bar
-      total    = 1000
+      total    = 500
       progress = Formatador::ProgressBar.new(total, :color => "light_blue")
       puts "Creating your Quiz!"
-      1000.times do
-      sleep 0.001
+      500.times do
       progress.increment
       end
       #
