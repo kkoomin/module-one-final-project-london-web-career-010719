@@ -46,26 +46,27 @@ def main_menu(user)
    menu = TTY::Prompt.new
    # puts "Do you want to change the list of your artists?"
    brk
-   selection = menu.select("MENU") do |a|
+   selection = menu.select("MAIN MENU") do |a|
       a.choice 'Quiz'
-      a.choice 'Rank'
+      a.choice 'High Scores'
       a.choice 'Popular Artists'
+      a.choice 'Exit Game'
     end
     if selection == 'Quiz'
       Question.new(user.artists.sample.name).ask_loop
-    elsif selection == 'Rank'
+    elsif selection == 'Exit Game'
+      exit
+    elsif selection == 'High Scores'
       puts "----HIGH SCORES----"
-      puts rank
+      puts User.rank
+      selection = menu.select("") do |a|
+        a.choice 'Back to Main Menu'
+        a.choice 'Exit Game'
+      end
+      main_menu($current_user) if selection == 'Back to Main Menu'
+      exit if selection == 'Exit Game'
     end
 end
-
-def rank 
-   users_arr = User.order(highscore: :desc)
-   users_arr.limit(5).map do |i|
-      "#{i.name} : #{i.highscore}"
-   end
-end
-
 
 
 

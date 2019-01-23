@@ -80,11 +80,10 @@ class Question
       $current_user.add_score(@answered.count)
       puts "TIMES UP"
       puts "You got #{@answered.count} songs!"
+      main_menu($current_user)
     else
       puts "You have #{time_limit - countdown.to_i} seconds left!"
     end
   end
-
-
 
 end
