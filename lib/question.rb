@@ -30,7 +30,7 @@ class Question
     input = nil
     question_time = Time.now
 
-    50.times {brk}
+    big_brk
     hidden_answers.each {|x| puts x}
     brk
     puts content
@@ -67,7 +67,7 @@ class Question
   end
 
   def update_board
-    system('clear')
+    big_brk
     puts hidden_answers
     brk
     puts "SCORE: #{@answered.uniq.length}"
@@ -81,7 +81,7 @@ class Question
       $current_user.add_score(@answered.count)
       puts "TIMES UP!"
       puts "You got #{@answered.count} songs!"
-    
+
       back_or_exit
     else
       puts "You have #{time_limit - countdown.to_i} seconds left!"

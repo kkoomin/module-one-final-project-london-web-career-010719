@@ -14,4 +14,6 @@ gem 'rainbow'
 gem 'formatador'
 gem 'artii'
 gem 'lolcat'
+gem "audio-playback"
 gem 'pastel'
+
