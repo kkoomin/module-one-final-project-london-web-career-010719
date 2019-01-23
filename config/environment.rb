@@ -1,7 +1,5 @@
 require 'bundler'
 require 'highline/import'
-require 'rainbow'
-
 
 Bundler.require
 

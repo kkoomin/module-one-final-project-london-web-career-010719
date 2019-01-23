@@ -2,7 +2,15 @@ $current_user = nil
 #STDIN.noecho(&:gets).chomp <- no charater printed out
 
 def welcome
-   puts Rainbow("Welcome to the music quiz!").orange
+   brk
+   brk
+   brk
+   system("artii 'Music Quiz' --font slant")
+   brk
+   brk
+   brk
+   puts Rainbow("🎵  Choose your Favourite Artists and Solve the Quiz!  🎵").red
+   brk
 end
 
 def get_input
@@ -37,7 +45,8 @@ def start_menu
     elsif selection == "Exit game"
       exit
     else 
-      puts "BOOOOOOM! It's A Trap!!! 💣"
+      system("artii 'B O O M !' | lolcat -a")
+      puts "💣 It's A Trap!!! 💣"
       sleep 2
       start_menu
     end
@@ -103,6 +112,15 @@ def main_menu(user)
     end
 
    if selection == 'Quiz'
+      #progress bar
+      total    = 1000
+      progress = Formatador::ProgressBar.new(total, :color => "light_blue")
+      puts "Creating your Quiz!"
+      1000.times do
+      sleep 0.001
+      progress.increment
+      end
+      #
       Question.new(user.artists.sample.name).ask_loop
    elsif selection == 'High Scores'
       puts "----HIGH SCORES----"

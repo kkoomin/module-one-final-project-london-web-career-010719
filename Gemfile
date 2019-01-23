@@ -11,3 +11,6 @@ gem 'tty-prompt'
 
 gem 'highline'
 gem 'rainbow'
+gem 'formatador'
+gem 'artii'
+gem 'lolcat'
