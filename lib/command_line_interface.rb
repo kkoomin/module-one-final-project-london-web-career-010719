@@ -1,5 +1,7 @@
 $current_user = nil
 #STDIN.noecho(&:gets).chomp <- no charater printed out
+$pastel = Pastel.new
+
 
 def welcome
   brk
@@ -12,12 +14,13 @@ def welcome
    puts '                               ― Friedrich Nietzsche'
    brk
    brk
-   puts Rainbow("🎵  Choose your Favourite Artists and Solve the Quiz!  🎵").red
+   puts $pastel.red.bold("🎵  Choose your Favourite Artists and Solve the Quiz!  🎵")
    brk
    system("playback POL-pet-park-short.wav -e 5")
 end
 
 def get_input
+   print "▶︎ "
    input = STDIN.gets.strip
    input.length == 0 ? " " : input
 end
@@ -61,7 +64,7 @@ def start_menu
     else
       system("artii 'B O O M !' | lolcat -a")
       puts "💣 It's A Trap!!! 💣"
-      sleep 2
+      sleep 1
       start_menu
     end
 
@@ -97,6 +100,9 @@ def login_account #for '#start_menu'
    user_name = get_input
 
    if User.find_by(name: user_name)
+      brk
+      brk
+      brk
       puts "Welcome back, #{user_name}!"
       User.find_by(name: user_name).check_password
    else
@@ -167,7 +173,6 @@ def back_or_exit
     main_menu($current_user) if selection == 'Back to Main Menu'
     exit if selection == 'Exit Game'
 end
-
 
 def init
    welcome

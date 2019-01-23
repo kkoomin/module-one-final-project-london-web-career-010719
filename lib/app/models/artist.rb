@@ -18,7 +18,8 @@ class Artist < ActiveRecord::Base
 
   def self.popular
     artists = Artist.all
-    artists.sort {|a,b| b.users.count <=> a.users.count}.first(5).map{|a| "#{a.name} : #{a.users.count}"}
+    table_data = artists.sort {|a,b| b.users.count <=> a.users.count}.first(5).map{|a| {:NAME => a.name, :Players => a.users.count}}
+    Formatador.display_table(table_data)
   end
 
 end
