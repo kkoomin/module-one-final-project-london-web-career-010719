@@ -44,13 +44,10 @@ class Question
       check_countdown(countdown, time_limit)
     end
 
-    brk
-    answers.first(20).each{|x| puts x}
-    brk
   end
 
   def check_input(input)
-    corrected_input = song_search_return_name(input)
+    corrected_input = song_search_return_name(input, self.artist)
     if self.answers.include?(input)
       @answered << input
       update_board
@@ -72,7 +69,7 @@ class Question
     50.times {brk}
     puts hidden_answers
     brk
-    puts "SCORE: #{@answered.length}"
+    puts "SCORE: #{@answered.uniq.length}"
     brk
     puts content
     brk
@@ -80,8 +77,11 @@ class Question
 
   def check_countdown(countdown, time_limit)
     if countdown > time_limit
+      brk
+      answers.first(20).each{|x| puts x}
+      brk
       puts "TIMES UP"
-      puts "You got #{@answered.count} songs! You score is #{score_storage}"
+      puts "You got #{@answered.uniq.length} songs!"
     else
       puts "You have #{time_limit - countdown.to_i} seconds left!"
     end

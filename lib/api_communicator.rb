@@ -21,11 +21,15 @@ def get_top_artists_names
   parse["artists"]["artist"].map {|m| m["name"]}
 end
 
-def song_search_return_name(search)
+def song_search_return_name(search, artist)
   search = search.gsub(" ", "%20")
-  parse = JSON.parse(RestClient.get("http://ws.audioscrobbler.com/2.0/?method=track.search&track=#{search}&api_key=#{$api_key}&format=json"))
-  parse = parse["results"]["trackmatches"]["track"][0]
-  parse ?  parse["name"] :  nil
+  artist = artist.gsub(" ", "%20")
+  parse = JSON.parse(RestClient.get("http://ws.audioscrobbler.com/2.0/?method=track.getcorrection&artist=#{artist}&track=#{search}&api_key=#{$api_key}&format=json"))
+  if parse["corrections"]["correction"]
+    return parse["corrections"]["correction"]["track"]["name"] #returns string of name
+  else
+    return nil
+  end
 end
 
 def check_artists(artist)
