@@ -139,6 +139,7 @@ def main_menu(user)
       a.choice 'High Scores'
       a.choice 'Popular Artists'
       a.choice 'Your Artists'
+      a.choice 'Your Suggested Artists'
       a.choice 'Change User'
       a.choice 'Exit Game'
     end
@@ -152,17 +153,20 @@ def main_menu(user)
         puts "Creating your Quiz! 🖍"
         250.times {progress.increment}
 
-        Question.new(user.artists.sample.name).ask_loop
+        Question.new(user.artists.sample).ask_loop
       when 'High Scores'
-        puts "----HIGH SCORES----"
         puts User.rank
         back_or_exit
       when 'Popular Artists'
-        puts "----Popular Artists----"
         puts Artist.popular
         back_or_exit
       when 'Your Artists'
         user.change_artists
+      when 'Your Suggested Artists'
+        suggested = user.artists.map {|a| a.similar_artists}.flatten.uniq.shuffle.first(10)
+        suggested = suggested.map{|a| {:Suggested_Artist => a.name}}
+        Formatador.display_table(suggested)
+        back_or_exit
       when 'Exit Game'
         exit
       when 'Change User'
