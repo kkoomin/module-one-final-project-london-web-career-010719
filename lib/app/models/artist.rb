@@ -25,8 +25,12 @@ class Artist < ActiveRecord::Base
   def similar_artists
     parse = JSON.parse(RestClient.get("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=#{artist_name}&api_key=#{$api_key}&format=json"))
     parse = parse["similarartists"]["artist"].map {|m| m["name"]}.first(4)
-    parse.map{|name| Artist.new(name: name)}
+    parse.map{|name| Artist.create(name: name)}
   end
 
+  def top_tracks
+    parse = JSON.parse(RestClient.get("http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=#{artist_name}&limit=100&api_key=#{$api_key}&format=json"))
+    parse["toptracks"]["track"].map {|m| m["name"]}
+  end
 
 end

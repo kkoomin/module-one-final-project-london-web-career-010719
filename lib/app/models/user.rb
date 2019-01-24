@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
           check_password
         elsif selection == 'Back to menu'
            start_menu
-       end 
+       end
      end
  end
 
@@ -81,9 +81,10 @@ class User < ActiveRecord::Base
      if selection == 'yes'
        self.artists.destroy_all
        self.enter_artists
-      else 
+    else
        main_menu($current_user)
-      end
+    end
+
  end
 
 

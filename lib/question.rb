@@ -5,13 +5,13 @@ class Question
 
   def initialize(artist)
     @artist = artist
-    @content = "Name as many songs by #{artist} as you can!!!"
-    @answers = top_track_names_from_artist(artist)
+    @content = "Name as many songs by #{artist.name} as you can!!!"
+    @answers = artist.top_tracks
     @answered = []
   end
 
   def ask_loop
-    time_limit = 15#(seconds)
+    time_limit = 10#(seconds)
     input = nil
     question_time = Time.now
 
@@ -46,13 +46,13 @@ class Question
           if  x.length == 1 || x.length == 2 || x.downcase == "the" || x.downcase == "and"
             x
           else
-            x.gsub(/[^a-zA-Z0-9\-]/,"").first + "-" + x[2..-1].gsub(/[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/,"┈")
+            x.first + "-" + x[2..-1].gsub(/[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/,"┈")
           end}.join("  ")
       end}
   end
 
 
-  def print_answers 
+  def print_answers
     answers.first(20).map do |answer|
       if @answered.include?(answer)
         Rainbow(answer).green
@@ -65,7 +65,7 @@ class Question
 
 
   def check_input(input)
-    corrected_input = song_search_return_name(input, self.artist)
+    corrected_input = song_search_return_name(input, self.artist.name)
     if self.answers.include?(input)
       @answered << input
       update_board
@@ -108,7 +108,7 @@ class Question
       back_or_exit
     elsif selection == 'Back to Main Menu'
       main_menu($current_user)
-    else 
+    else
       exit
     end
   end

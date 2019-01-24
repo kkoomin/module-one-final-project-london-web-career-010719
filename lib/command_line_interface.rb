@@ -139,6 +139,7 @@ def main_menu(user)
       a.choice 'High Scores'
       a.choice 'Popular Artists'
       a.choice 'Your Artists'
+      a.choice 'Your Suggested Artists'
       a.choice 'Change User'
       a.choice 'Exit Game'
     end
@@ -162,6 +163,11 @@ def main_menu(user)
         back_or_exit
       when 'Your Artists'
         user.change_artists
+      when 'Your Suggested Artists'
+        suggested = user.artists.map {|a| a.similar_artists}.flatten.uniq.shuffle.first(10)
+        suggested = suggested.map{|a| {:Suggested_Artist => a.name}}
+        Formatador.display_table(suggested)
+        back_or_exit
       when 'Exit Game'
         exit
       when 'Change User'
