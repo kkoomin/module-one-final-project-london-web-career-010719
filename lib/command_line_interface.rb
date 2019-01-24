@@ -4,9 +4,9 @@ $pastel = Pastel.new
 
 
 def welcome
-  brk
-  brk
-  brk
+   brk
+   brk
+   brk
    system("artii 'Music Quiz' --font slant")
    brk
    brk
@@ -41,8 +41,17 @@ def big_brk
   brk
 end
 
+def back_or_exit
+   menu = TTY::Prompt.new
+   selection = menu.select("") do |a|
+      a.choice 'Back to Main Menu'
+      a.choice 'Exit Game'
+   end
+    main_menu($current_user) if selection == 'Back to Main Menu'
+    exit if selection == 'Exit Game'
+end
 
-# ///////////////////////////
+# /////////////////////////////////////////////////////////
 def start_menu
    menu = TTY::Prompt.new
    brk
@@ -100,9 +109,7 @@ def login_account #for '#start_menu'
    user_name = get_input
 
    if User.find_by(name: user_name)
-      brk
-      brk
-      brk
+      big_brk
       puts "Welcome back, #{user_name}!"
       User.find_by(name: user_name).check_password
    else
@@ -121,7 +128,7 @@ def login_account #for '#start_menu'
    end
 end
 
-
+# /////////////////////////////////////////////////////////
 def main_menu(user)
    menu = TTY::Prompt.new
    big_brk
@@ -140,12 +147,13 @@ def main_menu(user)
       #progress bar
       total    = 1000
       progress = Formatador::ProgressBar.new(total, :color => "light_blue")
-      puts "Creating your Quiz!"
+      puts "Creating your Quiz! 🖍"
       1000.times do
-      sleep 0.0005
+      sleep 0.0001
       progress.increment
       end
       #
+      brk
       Question.new(user.artists.sample.name).ask_loop
    elsif selection == 'High Scores'
       puts "----HIGH SCORES----"
@@ -166,15 +174,7 @@ def main_menu(user)
 
 end
 
-def back_or_exit
-   menu = TTY::Prompt.new
-   selection = menu.select("") do |a|
-      a.choice 'Back to Main Menu'
-      a.choice 'Exit Game'
-   end
-    main_menu($current_user) if selection == 'Back to Main Menu'
-    exit if selection == 'Exit Game'
-end
+
 
 def init
    welcome
