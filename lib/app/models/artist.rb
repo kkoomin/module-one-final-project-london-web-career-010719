@@ -3,7 +3,7 @@ class Artist < ActiveRecord::Base
   has_many :users, through: :user_artists
 
   def artist_name
-    self.name.gsub(" ", "%20").mb_chars.normalize(:kd).gsub!(/[^abcdefghijklmnopqrstuvwxyz%ABCDEFGHIJKLMNOPQRSTUVWXYZ]/,'')
+    self.name.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').gsub(/[!@#^&*()=+|;':"<>?']/, '').gsub(" ", "%20")
   end
 
   def top_x_tracks(x)
@@ -29,7 +29,7 @@ class Artist < ActiveRecord::Base
   def similar_artists
     parse = JSON.parse(RestClient.get("http://ws.audioscrobbler.com/2.0/?method=artist.getsimilar&artist=#{artist_name}&api_key=#{$api_key}&format=json"))
     if parse["similarartists"]
-      return parse["similarartists"]["artist"].map {|m| m["name"]}.first(4).map{|name| Artist.new(name: name)}
+      return parse["similarartists"]["artist"].map {|m| m["name"]}.first(4).map{|n| Artist.new(name: n)}
     else
       return []
     end
