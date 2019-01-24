@@ -22,7 +22,7 @@ class MultipleChoice
             q.choice "#{dropdown[3]}"
             q.choice "#{dropdown[4]}"
         end
-    
+
         if selection == @answer
             brk
             $current_user.score += 5
