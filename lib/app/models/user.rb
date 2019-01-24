@@ -77,9 +77,8 @@ class User < ActiveRecord::Base
      if selection == 'yes'
        self.artists.destroy_all
        self.enter_artists
-     else
-       main_menu($current_user)
      end
+     main_menu($current_user)
  end
 
 
