@@ -114,7 +114,7 @@ def login_account #for '#start_menu'
       User.find_by(name: user_name).check_password
    else
       menu = TTY::Prompt.new
-      brk
+      big_brk
       selection = menu.select("I can't find your name, wanna try again?") do |a|
          a.choice 'Try again'
          a.choice 'Back to menu'
@@ -134,45 +134,51 @@ def main_menu(user)
    big_brk
    puts $pastel.blue.bold(" 🎧  MAIN MENU 🎧")
    brk
-   selection = menu.select("") do |a|
-      a.choice 'Quiz'
-      a.choice 'High Scores'
-      a.choice 'Your Artists'
-      a.choice 'Popular Artists'
-      a.choice 'Your Suggested Artists'
-      a.choice 'Change User'
-      a.choice 'Exit Game'
+   selection = menu.select("", per_page: 10) do |a|
+      a.choice '🎼   Quiz'
+      a.choice '🎼   High Scores'
+      a.choice '🎼   Your Artists'
+      a.choice '🎼   Popular Artists'
+      a.choice '🎼   Your Suggested Artists'
+      a.choice '🎼   Change User'
+      a.choice ' '
+      a.choice '❌   Exit Game'
     end
 
 
     case selection
-      when 'Quiz'
+      when '🎼   Quiz'
          $current_user.score = 0
          big_brk
-         5.times do
+         5.times do 
             MultipleChoice.new(user.artists.sample).set_question_and_check
             big_brk
          end
          Question.new(user.artists.sample).ask_loop
-      when 'High Scores'
+      when '🎼   High Scores'
          puts User.rank
          back_or_exit
-      when 'Your Artists'
+      when '🎼   Your Artists'
          user.change_artists
-      when 'Popular Artists'
+      when '🎼   Popular Artists'
          puts Artist.popular
          back_or_exit
-      when 'Your Suggested Artists'
+
+      when '🎼   Your Suggested Artists'
         user.suggest_X_artists(10)
         back_or_exit
-      when 'Exit Game'
-         exit
-      when 'Change User'
+      when '🎼   Change User'
          $current_user = nil
          start_menu
+      when '❌   Exit Game'
+         exit
+      when ' '
+         puts "Hi, You find our hidden message. Live long and prosper 🖖"
+         sleep 2
+         main_menu($current_user)
+
     end
 end
-
 
 
 def init
