@@ -46,7 +46,7 @@ class Question
           if  x.length == 1 || x.length == 2 || x.downcase == "the"
             x
           else
-            x.gsub(/[^a-zA-Z0-9\-]/,"").first + "-" + x[2..-1].gsub(/\D/,"┈")
+            x.gsub(/[^a-zA-Z0-9\-]/,"").first + "-" + x[2..-1].gsub(/[abcdefghijklmnopqrstuvwxyz]/,"┈")
           end}.join("  ")
       end}
   end

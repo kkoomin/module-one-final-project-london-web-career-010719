@@ -36,9 +36,6 @@ class User < ActiveRecord::Base
  end
 
  def enter_artists
-   brk
-   brk
-   brk
    puts "Please enter one of your favourite artists."
    while self.artists.length < 5
     brk
@@ -84,9 +81,14 @@ class User < ActiveRecord::Base
      if selection == 'yes'
        self.artists.destroy_all
        self.enter_artists
+<<<<<<< HEAD
       else 
        main_menu($current_user)
       end
+=======
+     end
+     main_menu($current_user)
+>>>>>>> e9e73c4971930d8233c296d62d2194d566a402ec
  end
 
 
