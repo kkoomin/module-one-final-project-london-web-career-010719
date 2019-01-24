@@ -132,7 +132,7 @@ end
 def main_menu(user)
    menu = TTY::Prompt.new
    big_brk
-   puts "🎵 MAIN MENU 🎵"
+   puts $pastel.blue.bold(" 🎧  MAIN MENU 🎧")
    brk
    selection = menu.select("") do |a|
       a.choice 'Quiz'
@@ -151,9 +151,10 @@ def main_menu(user)
         total    = 500
         progress = Formatador::ProgressBar.new(total, :color => "light_blue")
         puts "Creating your Quiz! 🖍"
-        250.times {progress.increment}
-
-        Question.new(user.artists.sample).ask_loop
+        500.times {progress.increment}
+        brk
+        #
+        Question.new(user.artists.sample.name).ask_loop
       when 'High Scores'
         puts User.rank
         back_or_exit
@@ -175,8 +176,6 @@ def main_menu(user)
     end
 
 end
-
-
 
 def init
    welcome

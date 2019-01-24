@@ -84,6 +84,7 @@ class User < ActiveRecord::Base
     else
        main_menu($current_user)
     end
+
  end
 
 

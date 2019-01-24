@@ -43,7 +43,7 @@ class Question
         Rainbow(answer).green
       else
         answer.split.map {|x|
-          if  x.length == 1 || x.length == 2 || x.downcase == "the"
+          if  x.length == 1 || x.length == 2 || x.downcase == "the" || x.downcase == "and"
             x
           else
             x.first + "-" + x[2..-1].gsub(/[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/,"┈")
