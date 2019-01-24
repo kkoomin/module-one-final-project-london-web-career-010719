@@ -37,7 +37,7 @@ class MultipleChoice
 
     def get_another_artists_song
         get_artists = get_top_artists_names.shuffle.first(4).map{|name| Artist.new(name: name)}
-        get_artists.map {|s| s.top_x_tracks(5).shuffle.first}
+        get_artists.map {|s| s.top_x_tracks(5).compact.shuffle.first}
     end
     
 end
