@@ -81,14 +81,9 @@ class User < ActiveRecord::Base
      if selection == 'yes'
        self.artists.destroy_all
        self.enter_artists
-<<<<<<< HEAD
       else 
        main_menu($current_user)
       end
-=======
-     end
-     main_menu($current_user)
->>>>>>> e9e73c4971930d8233c296d62d2194d566a402ec
  end
 
 
@@ -98,7 +93,7 @@ class User < ActiveRecord::Base
 
   def self.rank
     users_arr = self.order(highscore: :desc)
-    table_data = users_arr.limit(5).map {|i| {:NAME => i.name, :SCORE => i.highscore}}
+    table_data = users_arr.limit(10).map {|i| {:NAME => i.name, :SCORE => i.highscore}}
     Formatador.display_table(table_data)
   end
 

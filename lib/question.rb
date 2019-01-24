@@ -43,10 +43,10 @@ class Question
         Rainbow(answer).green
       else
         answer.split.map {|x|
-          if  x.length == 1 || x.length == 2 || x.downcase == "the"
+          if  x.length == 1 || x.length == 2 || x.downcase == "the" || x.downcase == "and"
             x
           else
-            x.gsub(/[^a-zA-Z0-9\-]/,"").first + "-" + x[2..-1].gsub(/[abcdefghijklmnopqrstuvwxyz]/,"┈")
+            x.gsub(/[^a-zA-Z0-9\-]/,"").first + "-" + x[2..-1].gsub(/[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/,"┈")
           end}.join("  ")
       end}
   end
@@ -97,12 +97,12 @@ class Question
   def answer_or_back_or_exit
     menu = TTY::Prompt.new
     selection = menu.select("") do |a|
-      a.choice 'Check your answer'
+      a.choice 'Check the answers'
       a.choice 'Back to Main Menu'
       a.choice 'Exit Game'
     end
 
-    if selection == 'Check the answer'
+    if selection == 'Check the answers'
       big_brk
       print_answers
       back_or_exit
