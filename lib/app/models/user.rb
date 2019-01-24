@@ -77,8 +77,8 @@ class User < ActiveRecord::Base
     show_artists
     brk
     selection = prompt.select("Do you want to change the list of your artists?") do |a|
-       a.choice 'yes'
        a.choice 'no'
+       a.choice 'yes'
      end
      if selection == 'yes'
        self.artists.destroy_all
@@ -86,7 +86,6 @@ class User < ActiveRecord::Base
     else
        main_menu($current_user)
     end
-
   end
 
  def suggest_X_artists(x)

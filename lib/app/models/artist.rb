@@ -8,11 +8,7 @@ class Artist < ActiveRecord::Base
 
   def top_x_tracks(x)
     parse = JSON.parse(RestClient.get("http://ws.audioscrobbler.com/2.0/?method=artist.gettoptracks&artist=#{artist_name}&limit=#{x}&api_key=#{$api_key}&format=json"))
-    if parse["toptracks"]
-      return parse["toptracks"]["track"].map {|m| m["name"]}
-    else
-      return []
-    end
+    parse["toptracks"] ? parse["toptracks"]["track"].map {|m| m["name"]} : []
   end
 
   def albums
@@ -34,6 +30,5 @@ class Artist < ActiveRecord::Base
       return []
     end
   end
-
 
 end
