@@ -6,7 +6,7 @@ class Question
   def initialize(artist)
     @artist = artist
     @content = "Name as many songs by #{artist.name} as you can!!!"
-    @answers = artist.top_tracks
+    @answers = artist.top_x_tracks(20)
     @answered = []
   end
 
