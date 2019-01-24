@@ -36,10 +36,7 @@ class User < ActiveRecord::Base
  end
 
  def enter_artists
-   brk
-   brk
-   brk
-   puts "Please enter your one of your favourite artists."
+   puts "Please enter one of your favourite artists."
    while self.artists.length < 5
     puts "We need #{5 - self.artists.length} more..." if self.artists.length < 5 && self.artists.length > 0
     brk
