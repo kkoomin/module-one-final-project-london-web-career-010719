@@ -1,5 +1,5 @@
 class MultipleChoice
-    attr_accessor :content, :artist, :answer
+    attr_accessor :content, :artist, :answer, :score
     @@all = []
 
     def initialize(artist)
@@ -25,22 +25,19 @@ class MultipleChoice
     
         if selection == @answer
             brk
+            $current_user.score += 5
             puts "Correct! You got 5 point!"
             sleep 2
         else
             brk
-            puts "Wrong! Try to get more points from next quiz!"
+            puts "Wrong! Correct answer was #{@answer}!"
             sleep 2
         end
     end
 
     def get_similar_artists_song
-        all_songs = @artist.similar_artists.map {|a| a.top_x_tracks(30).first(5) } # array of 4 artists's all albums
-        one_songs = all_songs.map {|a| a.shuffle.first} # array of one albums randomly picked
-    end
-
-    def add_score_multi
-        score_multi = 5
+        all_songs = @artist.similar_artists.map {|a| a.top_x_tracks(15)}.uniq # array of 4 artists's all songs
+        one_songs = all_songs.map {|a| a.shuffle.first} # array of one songs randomly picked
     end
 
 end

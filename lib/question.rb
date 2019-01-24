@@ -28,11 +28,13 @@ class Question
       check_input(input)
       brk
     end
-      $current_user.add_score(@answered.count)
+      $current_user.score += @answered.count
+      $current_user.update_highscore($current_user.score)
       puts $pastel.red.bold("TIMES UP! ⏰")
       brk
       puts "You got #{@answered.count} songs!"
       brk
+      puts "Your total score is #{$current_user.score}!"
       answer_or_back_or_exit
   end
 
