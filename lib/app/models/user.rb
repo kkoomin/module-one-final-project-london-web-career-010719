@@ -47,9 +47,11 @@ class User < ActiveRecord::Base
        if artist.nil?
           self.artists << Artist.create(name: artist_name)
           puts "Got it! #{artist_name} has been added!"
+          brk
        elsif self.artists.select{|a| a.id == artist.id}.first.nil?
           self.artists << artist
           puts "Got it! #{artist_name} has been added!!"
+          brk
        else
           puts "You already have this artist!"
        end

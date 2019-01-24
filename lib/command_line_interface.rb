@@ -4,6 +4,7 @@ $pastel = Pastel.new
 
 
 def welcome
+
   system("clear")
    system("artii 'Music Quiz' --font slant")
    brk
@@ -39,8 +40,17 @@ def big_brk
   brk
 end
 
+def back_or_exit
+   menu = TTY::Prompt.new
+   selection = menu.select("") do |a|
+      a.choice 'Back to Main Menu'
+      a.choice 'Exit Game'
+   end
+    main_menu($current_user) if selection == 'Back to Main Menu'
+    exit if selection == 'Exit Game'
+end
 
-# ///////////////////////////
+# /////////////////////////////////////////////////////////
 def start_menu
    menu = TTY::Prompt.new
    brk
@@ -98,7 +108,8 @@ def login_account #for '#start_menu'
    user_name = get_input
 
    if User.find_by(name: user_name)
-      brk
+
+      big_brk
       puts "Welcome back, #{user_name}!"
       User.find_by(name: user_name).check_password
    else
@@ -117,11 +128,13 @@ def login_account #for '#start_menu'
    end
 end
 
-
+# /////////////////////////////////////////////////////////
 def main_menu(user)
    menu = TTY::Prompt.new
    big_brk
-   selection = menu.select("MAIN MENU") do |a|
+   puts "🎵 MAIN MENU 🎵"
+   brk
+   selection = menu.select("") do |a|
       a.choice 'Quiz'
       a.choice 'High Scores'
       a.choice 'Popular Artists'
@@ -130,13 +143,14 @@ def main_menu(user)
       a.choice 'Exit Game'
     end
 
+
     case selection
       when 'Quiz'
         #progress bar
         total    = 500
         progress = Formatador::ProgressBar.new(total, :color => "light_blue")
-        puts "Creating your Quiz!"
-        500.times {progress.increment}
+        puts "Creating your Quiz! 🖍"
+        250.times {progress.increment}
 
         Question.new(user.artists.sample.name).ask_loop
       when 'High Scores'
@@ -158,15 +172,7 @@ def main_menu(user)
 
 end
 
-def back_or_exit
-   menu = TTY::Prompt.new
-   selection = menu.select("") do |a|
-      a.choice 'Back to Main Menu'
-      a.choice 'Exit Game'
-   end
-    main_menu($current_user) if selection == 'Back to Main Menu'
-    exit if selection == 'Exit Game'
-end
+
 
 def init
    welcome
