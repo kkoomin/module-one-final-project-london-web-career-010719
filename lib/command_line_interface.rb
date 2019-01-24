@@ -154,7 +154,7 @@ def main_menu(user)
         500.times {progress.increment}
         brk
         #
-        Question.new(user.artists.sample.name).ask_loop
+        Question.new(user.artists.sample).ask_loop
       when 'High Scores'
         puts User.rank
         back_or_exit
@@ -164,9 +164,7 @@ def main_menu(user)
       when 'Your Artists'
         user.change_artists
       when 'Your Suggested Artists'
-        suggested = user.artists.map {|a| a.similar_artists}.flatten.uniq.shuffle.first(10)
-        suggested = suggested.map{|a| {:Suggested_Artist => a.name}}
-        Formatador.display_table(suggested)
+        user.suggest_X_artists(10)
         back_or_exit
       when 'Exit Game'
         exit
@@ -174,8 +172,9 @@ def main_menu(user)
         $current_user = nil
         start_menu
     end
-
 end
+
+
 
 def init
    welcome
