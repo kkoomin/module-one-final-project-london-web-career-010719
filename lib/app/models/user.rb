@@ -89,6 +89,15 @@ class User < ActiveRecord::Base
 
   end
 
+
+
+ def suggest_X_artists(x)
+   suggested = self.artists.map {|a| a.similar_artists}.flatten.uniq.shuffle.first(x)
+   suggested = suggested.map{|a| {:Sugested => a.name}}
+   Formatador.display_table(suggested)
+ end
+
+
   def update_highscore(score)
     self.update(highscore: score) if self.highscore < score
   end
