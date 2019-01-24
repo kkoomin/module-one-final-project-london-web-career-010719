@@ -149,7 +149,7 @@ def main_menu(user)
       when 'Quiz'
          $current_user.score = 0
          big_brk
-         3.times do 
+         5.times do
             MultipleChoice.new(user.artists.sample).set_question_and_check
             big_brk
          end
@@ -163,7 +163,7 @@ def main_menu(user)
          puts Artist.popular
          back_or_exit
       when 'Your Suggested Artists'
-        user.suggest_X_artists(5)
+        user.suggest_X_artists(10)
         back_or_exit
       when 'Exit Game'
          exit
