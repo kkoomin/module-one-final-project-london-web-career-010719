@@ -4,9 +4,8 @@ $pastel = Pastel.new
 
 
 def welcome
-   brk
-   brk
-   brk
+
+  system("clear")
    system("artii 'Music Quiz' --font slant")
    brk
    brk
@@ -62,15 +61,16 @@ def start_menu
       a.choice 'Exit game'
     end
 
-    if selection == 'New Player'
-      big_brk
-      create_account
-    elsif selection == 'Existing Player'
-      big_brk
-      login_account
-    elsif selection == "Exit game"
-      exit
-    else
+    case selection
+      when 'New Player'
+        big_brk
+        create_account
+      when 'Existing Player'
+        big_brk
+        login_account
+      when 'Exit game'
+        exit
+      when ' '
       system("artii 'B O O M !' | lolcat -a")
       puts "💣 It's A Trap!!! 💣"
       sleep 1
@@ -89,13 +89,12 @@ def create_account #for '#start_menu'
       big_brk
       puts "Awesome, nice to meet you, #{user_name}!"
       brk
-      password = password_prompt('Please create new password.')
+      password = password_prompt('Please create a new password.')
       user.update_password(password)
       big_brk
       puts "Password Set!"
       $current_user = user
       $current_user.enter_artists
-      main_menu($current_user)
    else
       big_brk
       puts "That name is taken. Please choose another one."
@@ -109,6 +108,7 @@ def login_account #for '#start_menu'
    user_name = get_input
 
    if User.find_by(name: user_name)
+
       big_brk
       puts "Welcome back, #{user_name}!"
       User.find_by(name: user_name).check_password
@@ -143,34 +143,32 @@ def main_menu(user)
       a.choice 'Exit Game'
     end
 
-   if selection == 'Quiz'
-      #progress bar
-      total    = 1000
-      progress = Formatador::ProgressBar.new(total, :color => "light_blue")
-      puts "Creating your Quiz! 🖍"
-      1000.times do
-      sleep 0.0001
-      progress.increment
-      end
-      #
-      brk
-      Question.new(user.artists.sample.name).ask_loop
-   elsif selection == 'High Scores'
-      puts "----HIGH SCORES----"
-      puts User.rank
-      back_or_exit
-   elsif selection == 'Popular Artists'
-      puts "----Popular Artists----"
-      puts Artist.popular
-      back_or_exit
-   elsif selection == 'Update your Artists'
-      user.change_artists
-   elsif selection == 'Exit Game'
-      exit
-   elsif selection == 'Change User'
-      $current_user = nil
-      start_menu
-   end
+
+    case selection
+      when 'Quiz'
+        #progress bar
+        total    = 500
+        progress = Formatador::ProgressBar.new(total, :color => "light_blue")
+        puts "Creating your Quiz! 🖍"
+        250.times {progress.increment}
+
+        Question.new(user.artists.sample.name).ask_loop
+      when 'High Scores'
+        puts "----HIGH SCORES----"
+        puts User.rank
+        back_or_exit
+      when 'Popular Artists'
+        puts "----Popular Artists----"
+        puts Artist.popular
+        back_or_exit
+      when 'Update your Artists'
+        user.change_artists
+      when 'Exit Game'
+        exit
+      when 'Change User'
+        $current_user = nil
+        start_menu
+    end
 
 end
 
