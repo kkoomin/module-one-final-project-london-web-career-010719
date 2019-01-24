@@ -33,8 +33,9 @@ class Question
       puts $pastel.red.bold("TIMES UP! ⏰")
       brk
       puts "You got #{@answered.count} songs!"
-      brk
-      puts "Your total score is #{$current_user.score}!"
+      sleep 2
+      big_brk
+      system("artii 'Your score is #{$current_user.score} !'")
       answer_or_back_or_exit
   end
 

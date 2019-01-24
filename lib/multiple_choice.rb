@@ -9,7 +9,7 @@ class MultipleChoice
 
     def set_question_and_check
         menu = TTY::Prompt.new
-        @answer = @artist.top_x_tracks(10).shuffle.first #random album name string
+        @answer = @artist.top_x_tracks(20).last(10).shuffle.first #random album name string
         question = []
         question << @answer
         question << get_another_artists_song
@@ -25,8 +25,8 @@ class MultipleChoice
 
         if selection == @answer
             brk
-            $current_user.score += 5
-            puts Rainbow("Correct! You got 5 point!").green
+            $current_user.score += 3
+            puts Rainbow("Correct! You got 3 point!").green
             sleep 2
         else
             brk
@@ -36,8 +36,10 @@ class MultipleChoice
     end
 
     def get_another_artists_song
-        get_artists = get_top_artists_names.shuffle.first(4).map{|name| Artist.new(name: name)}
-        get_artists.map {|s| s.top_x_tracks(5).compact.shuffle.first}
+        get_artists = get_top_artists_names
+        get_artists.delete(@artist.name)
+        get_artists = get_artists.shuffle.first(4).map{|name| Artist.new(name: name)}
+        .map {|s| s.top_x_tracks(5).compact.shuffle.first}
     end
     
 end
