@@ -163,6 +163,7 @@ def main_menu(user)
       when '🎼   Popular Artists'
          puts Artist.popular
          back_or_exit
+
       when '🎼   Your Suggested Artists'
         user.suggest_X_artists(10)
         back_or_exit
