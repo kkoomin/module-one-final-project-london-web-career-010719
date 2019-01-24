@@ -35,7 +35,7 @@ class Question
       puts "You got #{@answered.count} songs!"
       sleep 2
       big_brk
-      system("artii 'Your score is #{$current_user.score} !'")
+      system("artii 'Your score is #{$current_user.score}'")
       answer_or_back_or_exit
   end
 

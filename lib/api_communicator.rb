@@ -5,9 +5,7 @@ require 'pry'
 $api_key = "4d19d52e509a4fab0c5bdf0f538ed2a3"
 
 def get_top_tracks
-  parse = JSON.parse(RestClient.get("http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&limit=200&api_key=#{$api_key}&format=json"))
-  parse = parse["tracks"]["track"].map{|t| t["name"]}
-  parse
+  JSON.parse(RestClient.get("http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&limit=100&api_key=#{$api_key}&format=json"))["tracks"]["track"].map{|t| t["name"]}
 end
 
 

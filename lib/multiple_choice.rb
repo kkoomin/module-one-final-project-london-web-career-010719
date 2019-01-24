@@ -12,7 +12,7 @@ class MultipleChoice
         @answer = @artist.top_x_tracks(20).last(10).shuffle.first #random album name string
         question = []
         question << @answer
-        question << get_top_tracks
+        question << get_top_tracks.shuffle.first(4)
         dropdown = question.flatten!.shuffle
 
         selection = menu.select(" 🎧  #{@content}") do |q|
