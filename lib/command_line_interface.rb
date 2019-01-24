@@ -138,7 +138,7 @@ def main_menu(user)
       a.choice 'Quiz'
       a.choice 'High Scores'
       a.choice 'Popular Artists'
-      a.choice 'Update your Artists'
+      a.choice 'Your Artists'
       a.choice 'Change User'
       a.choice 'Exit Game'
     end
@@ -161,7 +161,7 @@ def main_menu(user)
         puts "----Popular Artists----"
         puts Artist.popular
         back_or_exit
-      when 'Update your Artists'
+      when 'Your Artists'
         user.change_artists
       when 'Exit Game'
         exit

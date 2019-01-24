@@ -10,7 +10,6 @@ class Question
     @answered = []
   end
 
-  
   def ask_loop
     time_limit = 15#(seconds)
     input = nil
@@ -30,7 +29,8 @@ class Question
       brk
     end
       $current_user.add_score(@answered.count)
-      puts "TIMES UP!"
+      puts $pastel.red.bold("TIMES UP! ⏰")
+      brk
       puts "You got #{@answered.count} songs!"
       brk
       answer_or_back_or_exit
@@ -66,12 +66,12 @@ class Question
 
   def check_input(input)
     corrected_input = song_search_return_name(input, self.artist)
-    # if self.answers.include?(input)
-    #   @answered << input
-    #   update_board
-    #   puts Rainbow("CORRECT").green
-    #   brk
-    if self.answers.include?(corrected_input)
+    if self.answers.include?(input)
+      @answered << input
+      update_board
+      puts Rainbow("CORRECT").green
+      brk
+    elsif self.answers.include?(corrected_input)
       @answered << corrected_input
       update_board
       puts Rainbow("CORRECT").green
@@ -102,7 +102,7 @@ class Question
       a.choice 'Exit Game'
     end
 
-    if selection == 'Check your answer'
+    if selection == 'Check the answer'
       big_brk
       print_answers
       back_or_exit

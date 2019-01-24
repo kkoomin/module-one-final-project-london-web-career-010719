@@ -30,14 +30,15 @@ class User < ActiveRecord::Base
         if selection == 'Try again'
           check_password
         elsif selection == 'Back to menu'
-          start_menu
-        end
+           start_menu
+       end 
      end
  end
 
  def enter_artists
    puts "Please enter one of your favourite artists."
    while self.artists.length < 5
+    brk
     puts "We need #{5 - self.artists.length} more..." if self.artists.length < 5 && self.artists.length > 0
     brk
     artist_name = check_artists(get_input)
@@ -60,15 +61,18 @@ class User < ActiveRecord::Base
        puts "We can't find this #{artist_name}. Try again."
        enter_artists
     end
-
+    big_brk
+    show_artists
   end
-  sleep 1
+  sleep 2
   main_menu($current_user)
  end
 
  def change_artists
     prompt = TTY::Prompt.new
     # puts "Do you want to change the list of your artists?"
+    brk
+    show_artists
     brk
     selection = prompt.select("Do you want to change the list of your artists?") do |a|
        a.choice 'yes'
@@ -77,8 +81,14 @@ class User < ActiveRecord::Base
      if selection == 'yes'
        self.artists.destroy_all
        self.enter_artists
+<<<<<<< HEAD
+      else 
+       main_menu($current_user)
+      end
+=======
      end
      main_menu($current_user)
+>>>>>>> e9e73c4971930d8233c296d62d2194d566a402ec
  end
 
 
@@ -89,6 +99,13 @@ class User < ActiveRecord::Base
   def self.rank
     users_arr = self.order(highscore: :desc)
     table_data = users_arr.limit(5).map {|i| {:NAME => i.name, :SCORE => i.highscore}}
+    Formatador.display_table(table_data)
+  end
+
+
+  def show_artists
+    # self.artists.map {|a| puts " 🎶  #{a.name} "}
+    table_data = self.artists.map {|a| {:YOUR_ARTISTS => a.name}}
     Formatador.display_table(table_data)
   end
 

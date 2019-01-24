@@ -36,7 +36,7 @@ def check_artists(artist)
   artist = artist.gsub(" ", "%20")
   parse = JSON.parse(RestClient.get("http://ws.audioscrobbler.com/2.0/?method=artist.getcorrection&artist=#{artist}&api_key=#{$api_key}&format=json"))
   if parse["corrections"]["correction"]
-    return parse["corrections"]["correction"]["artist"]["name"] #returns string of name
+    return parse["corrections"]["correction"]["artist"]["name"].mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'')
   else
     return nil
   end
