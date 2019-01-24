@@ -137,8 +137,8 @@ def main_menu(user)
    selection = menu.select("") do |a|
       a.choice 'Quiz'
       a.choice 'High Scores'
-      a.choice 'Popular Artists'
       a.choice 'Your Artists'
+      a.choice 'Popular Artists'
       a.choice 'Your Suggested Artists'
       a.choice 'Change User'
       a.choice 'Exit Game'
@@ -147,22 +147,24 @@ def main_menu(user)
 
     case selection
       when 'Quiz'
-        #progress bar
-        total    = 500
-        progress = Formatador::ProgressBar.new(total, :color => "light_blue")
-        puts "Creating your Quiz! 🖍"
-        500.times {progress.increment}
-        brk
-        #
-        Question.new(user.artists.sample.name).ask_loop
+      #   #progress bar
+      #   total    = 500
+      #   progress = Formatador::ProgressBar.new(total, :color => "light_blue")
+      #   puts "Creating your Quiz! 🖍"
+      #   500.times {progress.increment}
+      #   brk
+      #   #
+        big_brk
+        MultipleChoice.new(user.artists.sample).set_question_and_check
+        Question.new(user.artists.sample).ask_loop
       when 'High Scores'
         puts User.rank
         back_or_exit
+      when 'Your Artists'
+         user.change_artists
       when 'Popular Artists'
         puts Artist.popular
         back_or_exit
-      when 'Your Artists'
-        user.change_artists
       when 'Your Suggested Artists'
         suggested = user.artists.map {|a| a.similar_artists}.flatten.uniq.shuffle.first(10)
         suggested = suggested.map{|a| {:Suggested_Artist => a.name}}

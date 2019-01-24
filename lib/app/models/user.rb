@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
        main_menu($current_user)
     end
 
- end
+  end
 
 
   def add_score(score)
