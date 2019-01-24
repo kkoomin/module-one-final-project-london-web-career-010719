@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   def check_password
     brk
-    password = password_prompt('Please enter your password.')
+    password = password_prompt('✏️ ... Please enter your password.')
     brk
      if self.password_checker(password) == true
        brk
@@ -38,10 +38,10 @@ class User < ActiveRecord::Base
  end
 
  def enter_artists
-   puts "Please enter one of your favourite artists."
+   puts "✏️ ... Please enter one of your favourite artists."
    while self.artists.length < 5
     brk
-    puts "We need #{5 - self.artists.length} more..." if self.artists.length < 5 && self.artists.length > 0
+    puts "Thanks! We only need #{5 - self.artists.length} more." if self.artists.length < 5 && self.artists.length > 0
     brk
     artist_name = check_artists(get_input)
 
@@ -51,16 +51,19 @@ class User < ActiveRecord::Base
           self.artists << Artist.create(name: artist_name)
           puts "Got it! #{artist_name} has been added!"
           brk
+          brk
        elsif self.artists.select{|a| a.id == artist.id}.first.nil?
           self.artists << artist
           puts "Got it! #{artist_name} has been added!!"
+          brk
           brk
        else
           puts "You already have this artist!"
        end
     else
-        brk
+      brk
        puts "We can't find this #{artist_name}. Try again."
+       brk
        enter_artists
     end
     big_brk

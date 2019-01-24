@@ -11,7 +11,7 @@ class Question
   end
 
   def ask_loop
-    time_limit = 60#(seconds)
+    time_limit = 90#(seconds)
     input = nil
     question_time = Time.now
 
@@ -36,8 +36,12 @@ class Question
     puts "You got #{@answered.count} songs!"
     sleep 2
     big_brk
-    system("artii 'SCORE: #{$current_user.score}'")
+    system("artii 'SCORE : #{$current_user.score}'")
     system("playback round_end.wav")
+    brk
+    brk
+    puts "Check your rank at 'High Scores'!"
+    brk
     answer_or_back_or_exit
 end
 
