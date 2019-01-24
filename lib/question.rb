@@ -37,7 +37,8 @@ class Question
     sleep 2
     big_brk
     system("artii 'SCORE: #{$current_user.score}'")
-    system("playback round_end.wav")
+    system("playback round_end.wav") if $current_user.score >= 10
+    system("playback bad.wav") if $current_user.score < 10
     answer_or_back_or_exit
 end
 
