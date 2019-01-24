@@ -163,7 +163,7 @@ def main_menu(user)
          puts Artist.popular
          back_or_exit
       when 'Your Suggested Artists'
-        user.suggest_X_artists(10)
+        user.suggest_X_artists(5)
         back_or_exit
       when 'Exit Game'
          exit

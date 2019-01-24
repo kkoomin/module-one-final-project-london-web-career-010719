@@ -26,11 +26,11 @@ class MultipleChoice
         if selection == @answer
             brk
             $current_user.score += 5
-            puts "Correct! You got 5 point!"
+            puts Rainbow("Correct! You got 5 point!").green
             sleep 2
         else
             brk
-            puts "Wrong! Correct answer was #{@answer}!"
+            puts Rainbow("Wrong! It was #{@answer}!").red
             sleep 2
         end
     end
@@ -39,5 +39,5 @@ class MultipleChoice
         get_artists = get_top_artists_names.shuffle.first(4).map{|name| Artist.new(name: name)}
         get_artists.map {|s| s.top_x_tracks(5).compact.shuffle.first}
     end
-
+    
 end
