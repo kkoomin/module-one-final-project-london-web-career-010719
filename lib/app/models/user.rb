@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_many :user_artists
   has_many :artists, through: :user_artists
 
+  attr_accessor :score
+
   def password_checker(password)
     password == self.password ?  true : false
   end
@@ -88,6 +90,7 @@ class User < ActiveRecord::Base
   end
 
 
+
  def suggest_X_artists(x)
    suggested = self.artists.map {|a| a.similar_artists}.flatten.uniq.shuffle.first(x)
    suggested = suggested.map{|a| {:Sugested => a.name}}
@@ -95,7 +98,7 @@ class User < ActiveRecord::Base
  end
 
 
-  def add_score(score)
+  def update_highscore(score)
     self.update(highscore: score) if self.highscore < score
   end
 
@@ -111,5 +114,6 @@ class User < ActiveRecord::Base
     table_data = self.artists.map {|a| {:YOUR_ARTISTS => a.name}}
     Formatador.display_table(table_data)
   end
+
 
 end

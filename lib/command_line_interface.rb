@@ -147,32 +147,29 @@ def main_menu(user)
 
     case selection
       when 'Quiz'
-      #   #progress bar
-      #   total    = 500
-      #   progress = Formatador::ProgressBar.new(total, :color => "light_blue")
-      #   puts "Creating your Quiz! 🖍"
-      #   500.times {progress.increment}
-      #   brk
-      #   #
-        big_brk
-        MultipleChoice.new(user.artists.sample).set_question_and_check
-        Question.new(user.artists.sample).ask_loop
+         $current_user.score = 0
+         big_brk
+         3.times do 
+            MultipleChoice.new(user.artists.sample).set_question_and_check
+            big_brk
+         end
+         Question.new(user.artists.sample).ask_loop
       when 'High Scores'
-        puts User.rank
-        back_or_exit
+         puts User.rank
+         back_or_exit
       when 'Your Artists'
          user.change_artists
       when 'Popular Artists'
-        puts Artist.popular
-        back_or_exit
+         puts Artist.popular
+         back_or_exit
       when 'Your Suggested Artists'
         user.suggest_X_artists(10)
         back_or_exit
       when 'Exit Game'
-        exit
+         exit
       when 'Change User'
-        $current_user = nil
-        start_menu
+         $current_user = nil
+         start_menu
     end
 end
 
