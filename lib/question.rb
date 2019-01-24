@@ -28,16 +28,18 @@ class Question
       check_input(input)
       brk
     end
-      $current_user.score += @answered.count
-      $current_user.update_highscore($current_user.score)
-      puts $pastel.red.bold("TIMES UP! ⏰")
-      brk
-      puts "You got #{@answered.count} songs!"
-      sleep 2
-      big_brk
-      system("artii 'Your score is #{$current_user.score} !'")
-      answer_or_back_or_exit
-  end
+
+    $current_user.score += @answered.count
+    $current_user.update_highscore($current_user.score)
+    puts $pastel.red.bold("TIMES UP! ⏰")
+    brk
+    puts "You got #{@answered.count} songs!"
+    sleep 2
+    big_brk
+    system("artii 'SCORE: #{$current_user.score}'")
+    system("playback round_end.wav")
+    answer_or_back_or_exit
+end
 
 
   def hidden_answers
@@ -85,7 +87,6 @@ class Question
       brk
     end
   end
-
 
   def update_board
     big_brk

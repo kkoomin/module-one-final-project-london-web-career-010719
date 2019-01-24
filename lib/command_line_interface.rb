@@ -4,7 +4,6 @@ $pastel = Pastel.new
 
 
 def welcome
-
   system("clear")
    system("artii 'Music Quiz' --font slant")
    brk
@@ -76,7 +75,6 @@ def start_menu
       sleep 1
       start_menu
     end
-
 end
 
 def create_account #for '#start_menu'
@@ -124,7 +122,6 @@ def login_account #for '#start_menu'
       elsif selection == 'Back to menu'
          start_menu
       end
-
    end
 end
 
@@ -150,7 +147,7 @@ def main_menu(user)
       when '🎼   Quiz'
          $current_user.score = 0
          big_brk
-         5.times do 
+         5.times do
             MultipleChoice.new(user.artists.sample).set_question_and_check
             big_brk
          end
@@ -173,7 +170,7 @@ def main_menu(user)
       when '❌   Exit Game'
          exit
       when ' '
-         puts "Hi, You find our hidden message. Live long and prosper 🖖"
+         puts "Hi, You found our hidden message. Live long and prosper 🖖"
          sleep 2
          main_menu($current_user)
 
