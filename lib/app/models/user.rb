@@ -36,6 +36,9 @@ class User < ActiveRecord::Base
  end
 
  def enter_artists
+   brk
+   brk
+   brk
    puts "Please enter your one of your favourite artists."
    while self.artists.length < 5
     puts "We need #{5 - self.artists.length} more..." if self.artists.length < 5 && self.artists.length > 0
@@ -47,9 +50,11 @@ class User < ActiveRecord::Base
        if artist.nil?
           self.artists << Artist.create(name: artist_name)
           puts "Got it! #{artist_name} has been added!"
+          brk
        elsif self.artists.select{|a| a.id == artist.id}.first.nil?
           self.artists << artist
           puts "Got it! #{artist_name} has been added!!"
+          brk
        else
           puts "You already have this artist!"
        end
