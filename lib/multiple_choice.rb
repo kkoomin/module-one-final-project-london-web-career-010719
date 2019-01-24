@@ -12,7 +12,7 @@ class MultipleChoice
         @answer = @artist.top_x_tracks(30).shuffle.first #random album name string
         question = []
         question << @answer
-        question << get_similar_artists_song
+        question << get_another_artists_song
         dropdown = question.flatten!.shuffle
 
         selection = menu.select(" 🎧  #{@content}") do |q|
@@ -35,9 +35,9 @@ class MultipleChoice
         end
     end
 
-    def get_similar_artists_song
-        all_songs = @artist.similar_artists.map {|a| a.top_x_tracks(15)}.uniq # array of 4 artists's all songs
-        one_songs = all_songs.map {|a| a.shuffle.first} # array of one songs randomly picked
+    def get_another_artists_song
+        get_artists = get_top_artists_names.shuffle.first(4).map{|name| Artist.new(name: name)}
+        get_artists.map {|s| s.top_x_tracks(5).shuffle.first}
     end
 
 end

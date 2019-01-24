@@ -89,11 +89,9 @@ class User < ActiveRecord::Base
 
   end
 
-
-
  def suggest_X_artists(x)
    suggested = self.artists.map {|a| a.similar_artists}.flatten.uniq.shuffle.first(x)
-   suggested = suggested.map{|a| {:Sugested => a.name}}
+   suggested = suggested.map{|a| {:Suggested => a.name}}
    Formatador.display_table(suggested)
  end
 
@@ -110,8 +108,7 @@ class User < ActiveRecord::Base
 
 
   def show_artists
-    # self.artists.map {|a| puts " 🎶  #{a.name} "}
-    table_data = self.artists.map {|a| {:YOUR_ARTISTS => a.name}}
+    table_data = self.artists.map {|a| {:ARTIST => a.name}}
     Formatador.display_table(table_data)
   end
 
