@@ -9,10 +9,10 @@ class MultipleChoice
 
     def set_question_and_check
         menu = TTY::Prompt.new
-        @answer = @artist.top_x_tracks(10).shuffle.first #random album name string
+        @answer = @artist.top_x_tracks(20).last(10).shuffle.first #random album name string
         question = []
         question << @answer
-        question << get_another_artists_song
+        question << get_top_tracks
         dropdown = question.flatten!.shuffle
 
         selection = menu.select(" 🎧  #{@content}") do |q|
@@ -33,13 +33,6 @@ class MultipleChoice
             puts Rainbow("Wrong! It was #{@answer}!").red
             sleep 2
         end
-    end
-
-    def get_another_artists_song
-        get_artists = get_top_artists_names
-        get_artists.delete(@artist.name)
-        get_artists = get_artists.shuffle.first(4).map{|name| Artist.new(name: name)}
-        get_artists.map {|s| s.top_x_tracks(5).compact.shuffle.first}
     end
 
 end
