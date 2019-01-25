@@ -26,7 +26,7 @@ class MultipleChoice
 
         if selection == @answer
             brk
-            $current_user.score += 3
+            User.current.score += 3
             puts Rainbow("Correct!").green + " You got " + Rainbow("3").green + " points!"
             sleep 2
         else
