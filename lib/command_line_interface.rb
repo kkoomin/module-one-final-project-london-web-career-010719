@@ -138,6 +138,7 @@ end
 
 # /////////////////////////////////////////////////////////
 def main_menu(user)
+  cat_animation
    menu = TTY::Prompt.new
    big_brk
    puts $pastel.blue.bold(" 🎧  MAIN MENU 🎧")
