@@ -55,13 +55,13 @@ end
           if  x.length == 1 || x.length == 2 || x.downcase == "the" || x.downcase == "and"
             x
           else
-            x.first + "-" + x[2..-1].gsub(/[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/,"┈")
+            x.first + x[1..-1].gsub(/[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/,"_")
           end}.join("  ")
       end}
   end
 
 
-  def print_answers
+  def print_answers   
     answers.first(20).map do |answer|
       if @answered.include?(answer)
         Rainbow(answer).green
