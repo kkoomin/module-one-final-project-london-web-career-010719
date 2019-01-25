@@ -5,7 +5,7 @@ $pastel = Pastel.new
 
 def welcome
   system("clear")
-   system("artii 'Music Quiz' --font slant")
+   system("artii 'Music Quiz' --font standard")
    brk
    brk
    puts '“Without music, life would be a mistake”'
@@ -95,6 +95,8 @@ def create_account #for '#start_menu'
       big_brk
       User.current = user
       User.current.enter_artists
+   elsif user_name == "exit"
+      start_menu
    else
       big_brk
       puts "That name is taken. Please choose another one."

@@ -1,7 +1,7 @@
 class MultipleChoice
     attr_accessor :content, :artist, :answer, :score
     @@all = []
-
+    
     def initialize(artist)
         @artist = artist
         @content = "Choose #{artist.name}'s song!"

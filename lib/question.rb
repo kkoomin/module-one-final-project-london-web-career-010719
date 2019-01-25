@@ -61,7 +61,7 @@ end
   end
 
 
-  def print_answers
+  def print_answers   
     answers.first(20).map do |answer|
       if @answered.include?(answer)
         Rainbow(answer).green
