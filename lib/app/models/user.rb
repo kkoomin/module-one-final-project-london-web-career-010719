@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   def check_password
     brk
-    password = password_prompt('✏️ ... Please enter your password.')
+    password = password_prompt('🔐 ... Please enter your password.')
     brk
      if self.password_checker(password) == true
        brk
@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
    puts "✏️ ... Please enter one of your favourite artists."
    while self.artists.length < 5
     brk
-    puts "Thanks! We only need #{5 - self.artists.length} more." if self.artists.length < 5 && self.artists.length > 0
+    puts "We only need #{5 - self.artists.length} more." if self.artists.length < 5 && self.artists.length > 0
     brk
     artist_name = check_artists(get_input)
 
@@ -49,20 +49,18 @@ class User < ActiveRecord::Base
        artist = Artist.find_by(name: artist_name)
        if artist.nil?
           self.artists << Artist.create(name: artist_name)
-          puts "Got it! #{artist_name} has been added!"
-          brk
-          brk
+          puts "Got it! " + Rainbow(artist_name).green + " has been added!"
+          sleep 1
        elsif self.artists.select{|a| a.id == artist.id}.first.nil?
           self.artists << artist
-          puts "Got it! #{artist_name} has been added!!"
-          brk
-          brk
+          puts "Got it! " + Rainbow(artist_name).green + " has been added!"
+          sleep 1
        else
           puts "You already have this artist!"
        end
     else
       brk
-       puts "We can't find this #{artist_name}. Try again."
+       puts "We can't find this " + Rainbow("#{artist_name}").red + " Try again."
        brk
        enter_artists
     end
@@ -105,6 +103,9 @@ class User < ActiveRecord::Base
   def self.rank
     users_arr = self.order(highscore: :desc)
     table_data = users_arr.limit(10).map {|i| {:NAME => i.name, :SCORE => i.highscore}}
+    table_data[0][:NAME] = "🥇 #{table_data[0][:NAME]}"
+    table_data[1][:NAME] = "🥈 #{table_data[1][:NAME]}"
+    table_data[2][:NAME] = "🥉 #{table_data[2][:NAME]}"
     Formatador.display_table(table_data)
   end
 

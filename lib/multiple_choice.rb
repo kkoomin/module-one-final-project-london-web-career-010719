@@ -17,12 +17,11 @@ class MultipleChoice
 
         selection = menu.select(" 🎧  #{@content}") do |q|
             brk
-            q.enum '.'
-            q.choice "#{dropdown[0]}", 1
-            q.choice "#{dropdown[1]}", 2
-            q.choice "#{dropdown[2]}", 3
-            q.choice "#{dropdown[3]}", 4
-            q.choice "#{dropdown[4]}", 5
+            q.choice "#{dropdown[0]}"
+            q.choice "#{dropdown[1]}"
+            q.choice "#{dropdown[2]}"
+            q.choice "#{dropdown[3]}"
+            q.choice "#{dropdown[4]}"
         end
 
         if selection == @answer

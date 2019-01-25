@@ -11,7 +11,7 @@ class Question
   end
 
   def ask_loop
-    time_limit = 90#(seconds)
+    time_limit = 60#(seconds)
     input = nil
     question_time = Time.now
 

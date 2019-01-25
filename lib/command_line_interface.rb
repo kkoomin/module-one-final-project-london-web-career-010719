@@ -23,7 +23,7 @@ def get_input
    input.length == 0 ? " " : input
 end
 
-def password_prompt(message, mask='*')
+def password_prompt(message, mask='✮')
    ask(message) { |q| q.echo = mask}
 end
 
@@ -85,9 +85,9 @@ def create_account #for '#start_menu'
    if !User.find_by(name: user_name)
       user = User.create(name: user_name)
       big_brk
-      puts "Awesome, nice to meet you, #{user_name}! 🤝"
+      puts "Awesome, nice to meet you, #{user_name}!"
       brk
-      password = password_prompt('✏️ ... Please create a new password.')
+      password = password_prompt('🔐 ... Please create a new password.')
       user.update_password(password)
       big_brk
       puts "Password Set!"
