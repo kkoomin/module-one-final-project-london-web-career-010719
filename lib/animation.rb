@@ -1,5 +1,5 @@
 def cat_animation
-20.times do
+6.times do
   i = 1
   while i < 3
     system("clear")
