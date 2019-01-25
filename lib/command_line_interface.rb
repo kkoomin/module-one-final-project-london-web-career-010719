@@ -4,6 +4,11 @@ $pastel = Pastel.new
 
 
 def welcome
+   t1 = Thread.new do
+      system("playback POL-pet-park-short.wav -e 5")
+    end
+    cat_animation
+    t1.join
   system("clear")
    system("artii 'Music Quiz' --font standard")
    brk
@@ -14,7 +19,7 @@ def welcome
    brk
    puts $pastel.red.bold("🎵  Choose your Favourite Artists and Solve the Quiz!  🎵")
    brk
-   system("playback POL-pet-park-short.wav -e 5")
+   
 end
 
 def get_input
