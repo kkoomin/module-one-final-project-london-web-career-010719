@@ -54,23 +54,23 @@ def start_menu
    menu = TTY::Prompt.new
    brk
    selection = menu.select("") do |a|
-      a.choice 'New Player'
-      a.choice 'Existing Player'
+      a.choice '🎸   New Player'
+      a.choice '🎸   Existing Player'
       a.choice ' '
-      a.choice 'Exit game'
+      a.choice '❌   Exit game'
     end
 
     case selection
-      when 'New Player'
+      when '🎸   New Player'
         big_brk
         create_account
-      when 'Existing Player'
+      when '🎸   Existing Player'
         big_brk
         login_account
-      when 'Exit game'
+      when '❌   Exit game'
         exit
       when ' '
-      system("artii 'B O O M !' | lolcat -a")
+      system("artii 'B O O M !' | lolcat")
       puts "💣 It's A Trap!!! 💣"
       sleep 1
       start_menu
@@ -78,19 +78,21 @@ def start_menu
 end
 
 def create_account #for '#start_menu'
-   puts "Please enter your name:"
+   puts "✏️ ... Please enter your name."
    brk
    user_name = get_input
 
    if !User.find_by(name: user_name)
       user = User.create(name: user_name)
       big_brk
-      puts "Awesome, nice to meet you, #{user_name}!"
+      puts "Awesome, nice to meet you, #{user_name}! 🤝"
       brk
-      password = password_prompt('Please create a new password.')
+      password = password_prompt('✏️ ... Please create a new password.')
       user.update_password(password)
       big_brk
       puts "Password Set!"
+      sleep 1
+      big_brk
       $current_user = user
       $current_user.enter_artists
    else
@@ -101,7 +103,7 @@ def create_account #for '#start_menu'
 end
 
 def login_account #for '#start_menu'
-   puts "Please enter your name"
+   puts "✏️ ... Please enter your name."
    brk
    user_name = get_input
 

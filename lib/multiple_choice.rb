@@ -16,21 +16,23 @@ class MultipleChoice
         dropdown = question.flatten!.shuffle
 
         selection = menu.select(" 🎧  #{@content}") do |q|
-            q.choice "#{dropdown[0]}"
-            q.choice "#{dropdown[1]}"
-            q.choice "#{dropdown[2]}"
-            q.choice "#{dropdown[3]}"
-            q.choice "#{dropdown[4]}"
+            brk
+            q.enum '.'
+            q.choice "#{dropdown[0]}", 1
+            q.choice "#{dropdown[1]}", 2
+            q.choice "#{dropdown[2]}", 3
+            q.choice "#{dropdown[3]}", 4
+            q.choice "#{dropdown[4]}", 5
         end
 
         if selection == @answer
             brk
             $current_user.score += 3
-            puts Rainbow("Correct! You got 3 point!").green
+            puts Rainbow("Correct!").green + " You got " + Rainbow("3").green + " points!"
             sleep 2
         else
             brk
-            puts Rainbow("Wrong! It was #{@answer}!").red
+            puts Rainbow("Wrong!").red + " It was " + Rainbow("#{@answer}").red + "!"
             sleep 2
         end
     end
