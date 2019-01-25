@@ -1,4 +1,4 @@
-$current_user = nil
+
 #STDIN.noecho(&:gets).chomp <- no charater printed out
 $pastel = Pastel.new
 
@@ -45,7 +45,7 @@ def back_or_exit
       a.choice 'Back to Main Menu'
       a.choice 'Exit Game'
    end
-    main_menu($current_user) if selection == 'Back to Main Menu'
+    main_menu(User.current) if selection == 'Back to Main Menu'
     exit if selection == 'Exit Game'
 end
 
@@ -93,8 +93,8 @@ def create_account #for '#start_menu'
       puts "Password Set!"
       sleep 1
       big_brk
-      $current_user = user
-      $current_user.enter_artists
+      User.current = user
+      User.current.enter_artists
    elsif user_name == "exit"
       start_menu
    else
@@ -149,7 +149,7 @@ def main_menu(user)
 
     case selection
       when '🎼   Quiz'
-         $current_user.score = 0
+         User.current.score = 0
          big_brk
          5.times do
             MultipleChoice.new(user.artists.sample).set_question_and_check
@@ -169,14 +169,14 @@ def main_menu(user)
         user.suggest_X_artists(10)
         back_or_exit
       when '🎼   Change User'
-         $current_user = nil
+         User.current = nil
          start_menu
       when '❌   Exit Game'
          exit
       when ' '
          puts "Hi, You found our hidden message. Live long and prosper 🖖"
          sleep 2
-         main_menu($current_user)
+         main_menu(User.current)
 
     end
 end

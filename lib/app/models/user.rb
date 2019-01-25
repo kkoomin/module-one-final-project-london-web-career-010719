@@ -4,6 +4,16 @@ class User < ActiveRecord::Base
 
   attr_accessor :score
 
+  @@current = nil
+
+  def self.current
+    @@current
+  end
+
+  def self.current=(user)
+    @@current = user
+  end
+
   def password_checker(password)
     password == self.password ?  true : false
   end
@@ -19,8 +29,8 @@ class User < ActiveRecord::Base
      if self.password_checker(password) == true
        brk
        puts "Welcome back"
-       $current_user = self
-       return main_menu($current_user)
+       User.current = self
+       return main_menu(User.current)
      else
        brk
        menu = TTY::Prompt.new
@@ -68,7 +78,7 @@ class User < ActiveRecord::Base
     show_artists
   end
   sleep 2
-  main_menu($current_user)
+  main_menu(User.current)
  end
 
  def change_artists
@@ -85,7 +95,7 @@ class User < ActiveRecord::Base
        self.artists.destroy_all
        self.enter_artists
     else
-       main_menu($current_user)
+       main_menu(User.current)
     end
   end
 
@@ -103,9 +113,9 @@ class User < ActiveRecord::Base
   def self.rank
     users_arr = self.order(highscore: :desc)
     table_data = users_arr.limit(10).map {|i| {:NAME => i.name, :SCORE => i.highscore}}
-    table_data[0][:NAME] = "🥇 #{table_data[0][:NAME]}"
-    table_data[1][:NAME] = "🥈 #{table_data[1][:NAME]}"
-    table_data[2][:NAME] = "🥉 #{table_data[2][:NAME]}"
+    table_data[0][:NAME] = "🥇 #{table_data[0][:NAME]}" if table_data[0]
+    table_data[1][:NAME] = "🥈 #{table_data[1][:NAME]}" if table_data[1]
+    table_data[2][:NAME] = "🥉 #{table_data[2][:NAME]}" if table_data[2]
     Formatador.display_table(table_data)
   end
 

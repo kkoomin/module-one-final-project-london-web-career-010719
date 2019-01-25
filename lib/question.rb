@@ -29,14 +29,14 @@ class Question
       brk
     end
 
-    $current_user.score += @answered.count
-    $current_user.update_highscore($current_user.score)
+    User.current.score += @answered.count
+    User.current.update_highscore(User.current.score)
     puts $pastel.red.bold("TIMES UP! ⏰")
     brk
     puts "You got #{@answered.count} songs!"
     sleep 2
     big_brk
-    system("artii 'SCORE : #{$current_user.score}'")
+    system("artii 'SCORE : #{User.current.score}'")
     system("playback round_end.wav")
     brk
     brk
@@ -115,7 +115,7 @@ end
       print_answers
       back_or_exit
     elsif selection == 'Back to Main Menu'
-      main_menu($current_user)
+      main_menu(User.current)
     else
       exit
     end
