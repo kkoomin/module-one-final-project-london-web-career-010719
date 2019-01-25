@@ -40,7 +40,7 @@ class Question
     system("playback round_end.wav")
     brk
     brk
-    puts "Check your rank at 'High Scores'!"
+    puts "Check your rank in 'High Scores'!"
     brk
     answer_or_back_or_exit
 end
